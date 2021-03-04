@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1089963565426",
+    "project_id": "booktogo-bc435",
+    "storage_bucket": "booktogo-bc435.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089963565426:android:fdbf6f476d258ce3fc3deb",
+        "android_client_info": {
+          "package_name": "com.example.booktogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089963565426-qnnj6jk67h0rg4q8hh0b3q5d136hn0nm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.booktogo",
+            "certificate_hash": "91779b85697241dd589442de20605a03ba13543f"
+          }
+        },
+        {
+          "client_id": "1089963565426-foujlmhucv9hjr9psl5if9k3qilq3bd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5fHwfQdByQmp-55g2tx-Q6x1s0UTrYNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089963565426-foujlmhucv9hjr9psl5if9k3qilq3bd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

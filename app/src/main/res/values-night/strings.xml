@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email_or_phone_number">Email or Phone Number</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="phoneNumber">Phone Number</string>
+</resources>
