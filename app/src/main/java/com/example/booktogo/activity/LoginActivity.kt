@@ -7,9 +7,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.example.booktogo.R
 import com.example.booktogo.fragment.RegisterFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     lateinit var topAnim: Animation
     lateinit var bottomAnim: Animation
     lateinit var leftAnim: Animation
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             // Note that system bars will only be "visible" if none of the
             // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        topAnim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.top_animation)
-        bottomAnim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.bottom_animation)
-        leftAnim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.left_animation)
-        rightAnim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.right_animation)
+        topAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.top_animation)
+        bottomAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.bottom_animation)
+        leftAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.left_animation)
+        rightAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.right_animation)
 
         img_logo.animation = topAnim
         img_welcome.animation = topAnim

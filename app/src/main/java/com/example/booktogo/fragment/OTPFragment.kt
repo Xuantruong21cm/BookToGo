@@ -18,8 +18,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_o_t_p.view.*
 import kotlinx.android.synthetic.main.fragment_phone_authen.view.*
@@ -93,12 +92,26 @@ class OTPFragment : Fragment(),OnOtpCompletionListener {
                         gender,
                         phone
                     )
-                    reference.child(AccountHelper.instance.phone!!).setValue(user)
-                    Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
-                    for (fragment in activity!!.supportFragmentManager.fragments) {
-                        activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
-                            .commit()
-                    }
+
+                    reference.child(AccountHelper.instance.phone!!).addListenerForSingleValueEvent(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.value == null){
+                                reference.child(AccountHelper.instance.phone!!).setValue(user)
+                                Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                                for (fragment in activity!!.supportFragmentManager.fragments) {
+                                    activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
+                                        .commit()
+                                }
+                            }else{
+                                Toast.makeText(context,"Phone Number Exists",Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+
+                    })
 
                 } else {
                     Toast.makeText(context, "OTP Is Not Correct", Toast.LENGTH_SHORT).show()
