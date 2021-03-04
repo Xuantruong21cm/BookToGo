@@ -58,6 +58,7 @@
             tools:text="An authentication code has been  \nsent to (+91) 999 999 999" />
 
         <com.mukesh.OtpView
+            style="@style/OtpWidget.OtpView"
             app:OtpHideLineWhenFilled="true"
             app:OtpItemSpacing="6dp"
             app:OtpState_filled="true"
