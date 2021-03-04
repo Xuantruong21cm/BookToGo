@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_register.view.img_markerLocation
 import kotlinx.android.synthetic.main.fragment_register.view.tv_cityNameRegister
 
 
-class OTPFragment : Fragment(),OnOtpCompletionListener {
+class OTPFragment : Fragment(), OnOtpCompletionListener {
     lateinit var topAnim: Animation
     lateinit var bottomAnim: Animation
     lateinit var leftAnim: Animation
@@ -45,22 +45,24 @@ class OTPFragment : Fragment(),OnOtpCompletionListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view : View = inflater.inflate(R.layout.fragment_o_t_p, container, false)
+    ): View {
+        val view: View = inflater.inflate(R.layout.fragment_o_t_p, container, false)
         initView(view)
-        view.textView.text = "An authentication code has been  \nsent to "+AccountHelper.instance.phone
+        view.textView.text =
+            "An authentication code has been  \nsent to " + AccountHelper.instance.phone
         firebaseAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Users")
         view.img_continue_OTP.setOnClickListener {
-            if (view.otpView.text!!.length <6){
-                Toast.makeText(context, "OTP Is Not In The Correct Format", Toast.LENGTH_SHORT).show()
-            }else{
-                val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
+            if (view.otpView.text!!.length < 6) {
+                Toast.makeText(context, "OTP Is Not In The Correct Format", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                     AccountHelper.instance.codeOTP,
                     view.otpView.text.toString()
                 )
-                    register(credential)
+                register(credential)
             }
         }
         view.otpView.setOtpCompletionListener(this)
@@ -92,27 +94,12 @@ class OTPFragment : Fragment(),OnOtpCompletionListener {
                         gender,
                         phone
                     )
-
-                    reference.child(AccountHelper.instance.phone!!).addListenerForSingleValueEvent(object : ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if (snapshot.value == null){
-                                reference.child(AccountHelper.instance.phone!!).setValue(user)
-                                Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
-                                for (fragment in activity!!.supportFragmentManager.fragments) {
-                                    activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
-                                        .commit()
-                                }
-                            }else{
-                                Toast.makeText(context,"Phone Number Exists",Toast.LENGTH_SHORT).show()
-                            }
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-
-                        }
-
-                    })
-
+                    reference.child(AccountHelper.instance.phone!!).setValue(user)
+                    Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                    for (fragment in activity!!.supportFragmentManager.fragments) {
+                        activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
+                            .commit()
+                    }
                 } else {
                     Toast.makeText(context, "OTP Is Not Correct", Toast.LENGTH_SHORT).show()
                 }
@@ -137,6 +124,6 @@ class OTPFragment : Fragment(),OnOtpCompletionListener {
     }
 
     override fun onOtpCompleted(otp: String?) {
-        
+
     }
 }

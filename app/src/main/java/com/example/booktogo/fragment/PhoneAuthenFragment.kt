@@ -19,6 +19,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_info_user.view.*
 import kotlinx.android.synthetic.main.fragment_info_user.view.img_firstname_label
@@ -37,6 +38,8 @@ class PhoneAuthenFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    lateinit var reference: DatabaseReference
+    lateinit var database : FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,6 +51,8 @@ class PhoneAuthenFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_phone_authen, container, false)
         initView(view)
         auth = Firebase.auth
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("Users")
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
 
@@ -73,7 +78,21 @@ class PhoneAuthenFragment : Fragment() {
             if (view.otpPhone.text.length < 10 || view.otpPhone.text.length > 10) {
                 Toast.makeText(context, "Incorrect Phone Number Format", Toast.LENGTH_SHORT).show()
             } else {
-                sendVerificationPhoneNumber("+84"+(view.otpPhone.text.substring(1)))
+                reference.child("+84"+(view.otpPhone.text.substring(1)))
+                reference.addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.value == null){
+                            sendVerificationPhoneNumber("+84"+(view.otpPhone.text.substring(1)))
+                        }else{
+                            Toast.makeText(context,"Phone number already exists",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
                 Log.d("phone", "+84"+(view.otpPhone.text.substring(1)))
             }
         }
