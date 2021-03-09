@@ -80,27 +80,29 @@ class LoginActivity : AppCompatActivity() {
                             AccountHelper.instance.firstname =
                                 snapshot.child("+84" + userName.substring(1)).child("firstname")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.lastname =
                                 snapshot.child("+84" + userName.substring(1)).child("lastname")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.email =
                                 snapshot.child("+84" + userName.substring(1)).child("email")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.age =
                                 snapshot.child("+84" + userName.substring(1)).child("age")
-                                    .getValue().toString()
-                            AccountHelper.instance.firstname =
+                                    .getValue(Int::class.java)
+                            AccountHelper.instance.gender =
                                 snapshot.child("+84" + userName.substring(1)).child("gender")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.userName =
                                 snapshot.child("+84" + userName.substring(1)).child("userName")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.phone =
                                 snapshot.child("+84" + userName.substring(1)).child("phone")
                                     .getValue(String::class.java)
-                            AccountHelper.instance.firstname =
+                            AccountHelper.instance.passWord =
                                 snapshot.child("+84" + userName.substring(1)).child("passWord")
                                     .getValue(String::class.java)
+                            AccountHelper.instance.avatar =  snapshot.child("+84" + userName.substring(1)).child("avatar")
+                                .getValue(String::class.java)
 
                             if (checkbox_rememberPass.isChecked) {
                                 GlobalScope.launch(Dispatchers.IO) {

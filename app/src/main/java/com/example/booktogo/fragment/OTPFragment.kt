@@ -83,7 +83,7 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
                     val age: Int = AccountHelper.instance.age!!
                     val gender: String = AccountHelper.instance.gender.toString()
                     val phone: String = AccountHelper.instance.phone.toString()
-
+                    val avatar : String = ""
                     val user: User = User(
                         email,
                         userName,
@@ -92,7 +92,8 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
                         lastname,
                         age,
                         gender,
-                        phone
+                        phone,
+                        avatar
                     )
                     reference.child(AccountHelper.instance.phone!!).setValue(user)
                     Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()

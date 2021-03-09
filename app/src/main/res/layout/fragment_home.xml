@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="noClick"
+    tools:ignore="OnClick"
+    tools:context=".activity.HomeActivity"
+    android:background="@drawable/background_app"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_hi_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="#2D3A4C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hi ! Xuân Trường" />
+
+            <ImageView
+                android:id="@+id/img_are_you_going"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/are_you_going"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hi_name" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="32dp"
+                app:civ_border_color="#47E0D7"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_are_you_going"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintStart_toEndOf="@+id/tv_hi_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:src="@drawable/male" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                tools:listitem="@layout/item_discount"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/recyclerView_discount"
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_are_you_going" />
+
+            <ImageView
+                android:id="@+id/img_explore_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/explore"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_discount" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_explore"
+                android:id="@+id/recyclerView_district"
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_explore_label" />
+
+            <ImageView
+                android:id="@+id/img_plan_a_trip_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/plan_a_trip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView_district" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/layout_pickday"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_plan_a_trip_label">
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spinner_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_line_hz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/line_hz"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_city" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spinner_district"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_line_hz" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_pickDay"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/layout_pickday"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <TextView
+                    android:id="@+id/tv_start_day"
+                    android:layout_width="136dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/start_day"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:gravity="center|right"
+                    android:paddingEnd="10dp"
+                    android:text="--/--/----"
+                    android:textColor="#445467"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tv_end_day"
+                    android:layout_width="136dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/start_day"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:gravity="center|left"
+                    android:paddingStart="10dp"
+                    android:text="--/--/----"
+                    android:textColor="#445467"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+                <ImageView
+                    android:id="@+id/tv_line"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/line"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_day"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_day"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:layout_marginTop="24dp"
+                android:id="@+id/edt_adults"
+                android:layout_width="136dp"
+                android:layout_height="50dp"
+                android:background="@drawable/editext_home"
+                android:fontFamily="@font/quicksand_regular"
+                android:gravity="right|center"
+                android:hint="@string/total_adults"
+                android:inputType="number"
+                android:paddingEnd="8dp"
+                android:textColor="#445467"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="32dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_pickDay"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            <EditText
+                android:layout_width="136dp"
+                android:layout_height="50dp"
+                android:background="@drawable/editext_home"
+                android:fontFamily="@font/quicksand_regular"
+                android:gravity="left|center"
+                android:hint="@string/total_children"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:textColor="#445467"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_pickDay"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:layout_marginBottom="82dp"
+                android:id="@+id/img_search_trip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/search_trip"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_adults" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

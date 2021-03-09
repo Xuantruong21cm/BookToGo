@@ -8,4 +8,7 @@
     <string name="username">Username</string>
     <string name="select_gender">Select Gender</string>
     <string name="phoneNumber">Phone Number</string>
+    <string name="total_adults">Total Adults</string>
+    <string name="total_children">Total Children</string>
+    <string name="book">Book</string>
 </resources>

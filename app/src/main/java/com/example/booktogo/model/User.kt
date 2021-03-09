@@ -5,5 +5,6 @@ data class User(
     var lastname: String,
     var age: Int,
     var gender: String,
-    var phone: String
+    var phone: String,
+    var avatar: String
 )

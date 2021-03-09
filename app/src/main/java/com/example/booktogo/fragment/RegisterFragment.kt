@@ -52,6 +52,13 @@ class RegisterFragment : Fragment() {
             }
         }
 
+        view.img_have_account.setOnClickListener {
+            for (fragment in activity!!.supportFragmentManager.fragments) {
+                activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
+                    .commit()
+            }
+        }
+
         return view
     }
 

@@ -10,6 +10,7 @@ class AccountHelper {
     var gender: String? = null
     var phone : String? = null
     var codeOTP : String? = null
+    var avatar : String? = null
 
     constructor()
 
