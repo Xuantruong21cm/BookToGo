@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:onClick="noClick"
     tools:ignore="OnClick"
+    android:id="@+id/layout_home_fragment"
     tools:context=".activity.HomeActivity"
     android:background="@drawable/background_app"
     xmlns:tools="http://schemas.android.com/tools">
@@ -200,6 +201,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
+                android:text="2"
                 android:layout_marginTop="24dp"
                 android:id="@+id/edt_adults"
                 android:layout_width="136dp"
@@ -219,6 +221,8 @@
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <EditText
+                android:text="2"
+                android:id="@+id/edt_children"
                 android:layout_width="136dp"
                 android:layout_height="50dp"
                 android:background="@drawable/editext_home"

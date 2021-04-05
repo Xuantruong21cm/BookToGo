@@ -7,6 +7,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,19 +22,33 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.booktogo.Helper.AccountHelper
+import com.example.booktogo.Helper.ExploreHelper
+import com.example.booktogo.Helper.HotelHelper
+import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.adapter.ExploreAdapter
 import com.example.booktogo.model.PlaceExplore
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.FirebaseDatabase
 import com.jaredrummler.materialspinner.MaterialSpinner
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,11 +64,20 @@ class HomeFragment : Fragment() {
     lateinit var DNCityAdapter: ArrayAdapter<String>
     lateinit var cityAdapter: ArrayAdapter<String>
     lateinit var district: String
+    lateinit var exploreCity: String
+    lateinit var cityName : String
+
+    var mylat : Double? = null
+    var mylng : Double? = null
+    lateinit var fusedLocationProviderClient : FusedLocationProviderClient
+    lateinit var address : MutableList<Address>
 
     var year: Int? = null
     var month: Int? = null
     var day: Int? = null
     lateinit var calendar: Calendar
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +90,26 @@ class HomeFragment : Fragment() {
         district_HCM()
         district_DN()
         calendar = Calendar.getInstance()
+        initLocation()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initLocation() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient.lastLocation.addOnCompleteListener(object :
+            OnCompleteListener<Location> {
+            override fun onComplete(task: Task<Location>) {
+                val location = task.result
+                if (location != null){
+                    val geocoder : Geocoder = Geocoder(context, Locale.getDefault())
+                    address = geocoder.getFromLocation(location.latitude,location.longitude,1)
+                    mylat = address[0].latitude
+                    mylng = address[0].longitude
+                    HotelHelper.instance.myLat = mylat
+                    HotelHelper.instance.myLng = mylng
+                }
+            }
+        })
     }
 
     fun district_HaNoi() {
@@ -155,7 +201,7 @@ class HomeFragment : Fragment() {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -163,32 +209,58 @@ class HomeFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
         initDataView(view)
         initListener(view)
-        initExplore(view)
+        initExplore(view, HomeActivity.listPlace_HaNoi)
         return view
     }
 
-    private fun initExplore(view: View) {
-        val exploreAdapter : ExploreAdapter = ExploreAdapter(HomeActivity.listPlace_HaNoi,requireContext())
+    private fun initExplore(view: View, list: ArrayList<PlaceExplore>) {
+        val exploreAdapter: ExploreAdapter = ExploreAdapter(list, requireContext())
         view.recyclerView_district.setHasFixedSize(true)
         view.recyclerView_district.adapter = exploreAdapter
-        exploreAdapter.setExploreClickListener(object : ExploreAdapter.ExplorerListener{
+        exploreAdapter.setExploreClickListener(object : ExploreAdapter.ExplorerListener {
             override fun onClick(placeExplore: PlaceExplore) {
-                Toast.makeText(requireContext(),placeExplore.title,Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(),,Toast.LENGTH_SHORT).show()
+                ExploreHelper.instance.exploreCity = exploreCity
+                ExploreHelper.instance.district = placeExplore.district
+                ExploreHelper.instance.imageDistrict = placeExplore.image
+                ExploreHelper.instance.title = placeExplore.title
+                val transition: FragmentTransaction =
+                    activity!!.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+                transition.replace(R.id.layout_home_fragment, ExploreFragment()).commit()
+                transition.addToBackStack(ExploreFragment::class.java.simpleName)
             }
-
         })
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun calculate(startDay : String, endDay : String) : Long{
+        val dateformater : DateTimeFormatter = DateTimeFormatter.ofPattern("d/M/u")
+        val startDateValue = LocalDate.parse(startDay,dateformater)
+        val endDateValue = LocalDate.parse(endDay,dateformater)
+        val days :Long = ChronoUnit.DAYS.between(startDateValue,endDateValue)
+        return days
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun initListener(view: View) {
         view.img_avatar.setOnClickListener {
             choosePicture()
         }
 
         view.img_search_trip.setOnClickListener {
-            Toast.makeText(requireContext(), district, Toast.LENGTH_SHORT).show()
+            TripHelper.instance.city = cityName
+            TripHelper.instance.district = district
+            TripHelper.instance.adults = edt_adults.text.toString()
+            TripHelper.instance.children = edt_children.text.toString()
+            TripHelper.instance.cityHotel = exploreCity
+            TripHelper.instance.days = calculate(tv_start_day.text.toString(),tv_end_day.text.toString()).toString()
+            var manager : FragmentManager = activity!!.supportFragmentManager
+            var transition : FragmentTransaction = manager.beginTransaction()
+            val fragment : Fragment = SearchFragment()
+            transition.replace(R.id.layout_search,fragment).commit()
+            activity!!.chip_navigation.setItemSelected(R.id.bottom_nav_search)
+            true
         }
 
         view.tv_start_day.setOnClickListener {
@@ -199,7 +271,8 @@ class HomeFragment : Fragment() {
             val datePickerDialog: DatePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                        requireView().tv_start_day.text = ""+dayOfMonth+"/"+(month+1)+"/"+year
+                    requireView().tv_start_day.text =
+                        "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
                 year!!,
                 month!!,
@@ -216,7 +289,7 @@ class HomeFragment : Fragment() {
             val datePickerDialog: DatePickerDialog = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    requireView().tv_end_day.text = ""+dayOfMonth+"/"+(month+1)+"/"+year
+                    requireView().tv_end_day.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
                 year!!,
                 month!!,
@@ -228,7 +301,9 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initDataView(view: View) {
+        cityName = "Hà Nội"
         district = districtList_HaNoi[0]
+        exploreCity = "HotelHaNoi"
         view.tv_hi_name.text =
             "Hi ! " + AccountHelper.instance.firstname + " " + AccountHelper.instance.lastname
         if (AccountHelper.instance.avatar!!.length <= 1) {
@@ -261,12 +336,21 @@ class HomeFragment : Fragment() {
                 if (item.equals("Hà Nội")) {
                     requireView().spinner_district.setAdapter(haNoiCityAdapter)
                     district = districtList_HaNoi[0]
+                    exploreCity = "HotelHaNoi"
+                    cityName = item.toString()
+                    initExplore(requireView(), HomeActivity.listPlace_HaNoi)
                 } else if (item.equals("Đà Nẵng")) {
                     requireView().spinner_district.setAdapter(DNCityAdapter)
                     district = districtList_DN[0]
+                    exploreCity = "HotelDaNang"
+                    cityName = item.toString()
+                    initExplore(requireView(), HomeActivity.listPlace_DN)
                 } else if (item.equals("Hồ Chí Minh")) {
                     requireView().spinner_district.setAdapter(HCMCityAdapter)
                     district = districtList_HCM[0]
+                    exploreCity = "HotelHCM"
+                    cityName = item.toString()
+                    initExplore(requireView(), HomeActivity.listPlace_HCM)
                 }
             }
         })
@@ -326,5 +410,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 }

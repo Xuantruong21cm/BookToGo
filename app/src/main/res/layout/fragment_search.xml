@@ -1,10 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
-    tools:context=".fragment.SearchFragment">
+    android:background="#FFFFFF"
+    android:onClick="noClick"
+    android:id="@+id/layout_search"
+    tools:context=".fragment.SearchFragment"
+    tools:ignore="OnClick">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edt_searchFragment"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/custom_edit_login"
+                android:drawableStart="@drawable/arrow2"
+                android:drawableEnd="@drawable/search_label"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="#445467"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hoàn Kiếm,Hà Nội" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_info_member"
+                android:layout_width="match_parent"
+                android:layout_height="176dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/custom_info_member"
+                android:padding="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_searchFragment">
+
+                <TextView
+                    android:id="@+id/tv_district_member_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Hoàn Kiếm," />
+
+                <TextView
+                    android:id="@+id/tv_city_member_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_district_member_info"
+                    tools:text="Hà Nội" />
+
+                <ImageView
+                    android:id="@+id/tv_line_member_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/line5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_city_member_info" />
+
+                <TextView
+                    android:id="@+id/tv_guests_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/guests"
+                    android:textColor="#546679"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_adults_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_line_member_info" />
+
+                <TextView
+                    android:id="@+id/tv_adults_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/adults"
+                    android:textColor="#546679"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_children_label"
+                    app:layout_constraintStart_toEndOf="@+id/tv_guests_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_line_member_info" />
+
+                <TextView
+                    android:id="@+id/tv_children_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/children"
+                    android:textColor="#546679"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/tv_days_label"
+                    app:layout_constraintStart_toEndOf="@+id/tv_adults_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_line_member_info" />
+
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/tv_days_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/days"
+                    android:textColor="#546679"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_children_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_line_member_info" />
+
+                <TextView
+                    android:id="@+id/tv_username_guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_guests_label"
+                    app:layout_constraintStart_toStartOf="@+id/tv_guests_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_guests_label"
+                    tools:text="Xuantruong21" />
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/tv_adults_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_adults_label"
+                    app:layout_constraintStart_toStartOf="@+id/tv_adults_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_adults_label"
+                    tools:text="02" />
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/tv_children_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_children_label"
+                    app:layout_constraintStart_toStartOf="@+id/tv_children_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_children_label"
+                    tools:text="02" />
+
+                <TextView
+                    tools:text="05"
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/tv_days_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_days_label"
+                    app:layout_constraintStart_toStartOf="@+id/tv_days_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_days_label" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:id="@+id/recyclerView_listHotel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_info_member"
+                tools:listitem="@layout/item_hotel_explore" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

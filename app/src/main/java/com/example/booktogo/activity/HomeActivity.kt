@@ -36,18 +36,35 @@ import kotlin.math.log
 
 class HomeActivity : AppCompatActivity() {
     companion object {
+        lateinit var chip_navigationView : ChipNavigationBar
         lateinit var listPlace_HaNoi: ArrayList<PlaceExplore>
+        lateinit var listPlace_HCM: ArrayList<PlaceExplore>
+        lateinit var listPlace_DN: ArrayList<PlaceExplore>
     }
+    private val homeFragment = HomeFragment()
+    private val searchFragment = SearchFragment()
+    private val bookmarkFragment = BookmarkFragment()
+    private val userFragment = UserFragment()
+    private var activeFragment : Fragment = homeFragment
 
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        supportFragmentManager.beginTransaction().replace(R.id.layout_home, HomeFragment()).commit()
-        chip_navigation.setItemSelected(R.id.bottom_nav_home, true)
+        chip_navigationView = chip_navigation
+        //supportFragmentManager.beginTransaction().replace(R.id.layout_home, HomeFragment()).commit()
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.layout_home,userFragment).hide(userFragment)
+            add(R.id.layout_home,bookmarkFragment).hide(bookmarkFragment)
+            add(R.id.layout_home,searchFragment).hide(searchFragment)
+            add(R.id.layout_home,homeFragment)
+        }.commit()
+        chip_navigationView.setItemSelected(R.id.bottom_nav_home, true)
         bottom_navigation()
         initExplore_HaNoi()
+        initExplore_HCM()
+        initExplore_DN()
         getCurrentLocation()
     }
 
@@ -115,27 +132,86 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
+    fun initExplore_HCM() {
+        listPlace_HCM = ArrayList()
+        val database: FirebaseDatabase = Firebase.database
+        val reference = database.getReference("Explore").child("HoChiMinh").child("Place")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (ds: DataSnapshot in snapshot.children) {
+                    //   Log.d("valueSnap", ""+ds.key)
+                    Log.d("valueSnap", "" + ds.child("Title").value)
+                    listPlace_HCM.add(
+                        PlaceExplore(
+                            ds.child("Title").value.toString(),
+                            ds.child("Image").value.toString(),
+                            ds.child("District").value.toString()
+                        )
+                    )
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    fun initExplore_DN() {
+        listPlace_DN = ArrayList()
+        val database: FirebaseDatabase = Firebase.database
+        val reference = database.getReference("Explore").child("DaNang").child("Place")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (ds: DataSnapshot in snapshot.children) {
+                    //   Log.d("valueSnap", ""+ds.key)
+                    Log.d("valueSnap", "" + ds.child("Title").value)
+                    listPlace_DN.add(
+                        PlaceExplore(
+                            ds.child("Title").value.toString(),
+                            ds.child("Image").value.toString(),
+                            ds.child("District").value.toString()
+                        )
+                    )
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
     fun bottom_navigation() {
-        chip_navigation.setOnItemSelectedListener(object :
+        chip_navigationView.setOnItemSelectedListener(object :
             ChipNavigationBar.OnItemSelectedListener {
             override fun onItemSelected(id: Int) {
-                var fragment: Fragment? = null
+//                var fragment: Fragment? = null
                 when (id) {
                     R.id.bottom_nav_home -> {
-                        fragment = HomeFragment()
+                        supportFragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+                        activeFragment = homeFragment
+                        true
                     }
                     R.id.bottom_nav_search -> {
-                        fragment = SearchFragment()
+                        supportFragmentManager.beginTransaction().hide(activeFragment).show(searchFragment).commit()
+                        activeFragment = searchFragment
+                        true
                     }
                     R.id.bottom_nav_bookmark -> {
-                        fragment = BookmarkFragment()
+                        supportFragmentManager.beginTransaction().hide(activeFragment).show(bookmarkFragment).commit()
+                        activeFragment = bookmarkFragment
+                        true
                     }
                     R.id.bottom_nav_user -> {
-                        fragment = UserFragment()
+                        supportFragmentManager.beginTransaction().hide(activeFragment).show(userFragment).commit()
+                        activeFragment = userFragment
+                        true
                     }
+                    else -> false
                 }
-                supportFragmentManager.beginTransaction().replace(R.id.layout_home, fragment!!)
-                    .commit()
+//                supportFragmentManager.beginTransaction().replace(R.id.layout_home, fragment!!)
+//                    .commit()
             }
         })
     }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    android:onClick="noClick"
+    android:layout_height="match_parent"
+    tools:context=".fragment.MapViewDetailsFragment"
+    tools:ignore="OnClick">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_back_mapDetails"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_explore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/tv_hotelName_mapDetails"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/img_back_mapDetails"
+            app:layout_constraintStart_toEndOf="@+id/img_back_mapDetails"
+            app:layout_constraintTop_toTopOf="@+id/img_back_mapDetails"
+            tools:text="Hanoi Malo Boutique Hotel" />
+
+        <View
+            android:background="#F44336"
+            android:id="@+id/view_color1"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/view_color2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_mapDetails" />
+
+        <View
+            android:id="@+id/view_color2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#FF9800"
+            app:layout_constraintEnd_toStartOf="@+id/view_color3"
+            app:layout_constraintStart_toEndOf="@+id/view_color1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_mapDetails" />
+
+        <View
+            android:id="@+id/view_color3"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#4CAF50"
+            app:layout_constraintEnd_toStartOf="@id/view_color4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_mapDetails"
+            app:layout_constraintStart_toEndOf="@+id/view_color2"/>
+
+        <View
+            app:layout_constraintEnd_toStartOf="@id/view_color5"
+            app:layout_constraintStart_toEndOf="@+id/view_color3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_mapDetails"
+            android:id="@+id/view_color4"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#9C27B0" />
+
+        <View
+            android:id="@+id/view_color5"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#03A9F4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_color4"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_mapDetails" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_color3">
+
+            <fragment
+                android:id="@+id/fragment_map_details"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/img_myLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mylocation"
+                app:layout_constraintBottom_toTopOf="@+id/img_hotel_location"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/img_hotel_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hotel_location"
+                app:layout_constraintBottom_toTopOf="@+id/img_direct"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/img_direct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/direct"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_map_details"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/btn_chooseThisHotel_mapDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_choose_this_hotel"
+                android:gravity="center"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="@string/choose_this_hotel"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_priceRange_mapDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#F44336"
+                android:textSize="18sp"
+                tools:text="0 - 999.999 VNĐ" />
+
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

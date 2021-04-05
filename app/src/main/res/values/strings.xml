@@ -11,4 +11,23 @@
     <string name="total_adults">Total Adults</string>
     <string name="total_children">Total Children</string>
     <string name="book">Book</string>
+    <string name="user">User</string>
+    <string name="guests">Guests</string>
+    <string name="adults">Adults</string>
+    <string name="children">Children</string>
+    <string name="days">Days</string>
+    <string name="see_hotel_details">See hotel <br />details</string>
+    <string name="map_key" translatable="false">AIzaSyA1hV1qrPXdZMHp_6WAa3kHPQKdXLjHBlE</string>
+    <string name="view_location">View Location</string>
+    <string name="choose_this_hotel">Choose This Hotel</string>
+    <string name="free_wifi">Free Wifi</string>
+    <string name="clean_room">Clean Room</string>
+    <string name="elevator">Elevator</string>
+    <string name="family_room">Family Room</string>
+    <string name="wifi_free">Wifi Free</string>
+    <string name="hot_tub">Hot Tub</string>
+    <string name="laundry">Laundry</string>
+    <string name="reception">Reception</string>
+    <string name="security_camera">Security Camera</string>
+    <string name="smoke">Smoke</string>
 </resources>
