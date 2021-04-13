@@ -65,18 +65,17 @@ class HomeFragment : Fragment() {
     lateinit var cityAdapter: ArrayAdapter<String>
     lateinit var district: String
     lateinit var exploreCity: String
-    lateinit var cityName : String
+    lateinit var cityName: String
 
-    var mylat : Double? = null
-    var mylng : Double? = null
-    lateinit var fusedLocationProviderClient : FusedLocationProviderClient
-    lateinit var address : MutableList<Address>
+    var mylat: Double? = null
+    var mylng: Double? = null
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var address: MutableList<Address>
 
     var year: Int? = null
     var month: Int? = null
     var day: Int? = null
     lateinit var calendar: Calendar
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,14 +94,15 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     private fun initLocation() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
         fusedLocationProviderClient.lastLocation.addOnCompleteListener(object :
             OnCompleteListener<Location> {
             override fun onComplete(task: Task<Location>) {
                 val location = task.result
-                if (location != null){
-                    val geocoder : Geocoder = Geocoder(context, Locale.getDefault())
-                    address = geocoder.getFromLocation(location.latitude,location.longitude,1)
+                if (location != null) {
+                    val geocoder: Geocoder = Geocoder(context, Locale.getDefault())
+                    address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     mylat = address[0].latitude
                     mylng = address[0].longitude
                     HotelHelper.instance.myLat = mylat
@@ -225,7 +225,8 @@ class HomeFragment : Fragment() {
                 ExploreHelper.instance.imageDistrict = placeExplore.image
                 ExploreHelper.instance.title = placeExplore.title
                 val transition: FragmentTransaction =
-                    activity!!.supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+                    activity!!.supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
                 transition.replace(R.id.layout_home_fragment, ExploreFragment()).commit()
                 transition.addToBackStack(ExploreFragment::class.java.simpleName)
             }
@@ -233,11 +234,11 @@ class HomeFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun calculate(startDay : String, endDay : String) : Long{
-        val dateformater : DateTimeFormatter = DateTimeFormatter.ofPattern("d/M/u")
-        val startDateValue = LocalDate.parse(startDay,dateformater)
-        val endDateValue = LocalDate.parse(endDay,dateformater)
-        val days :Long = ChronoUnit.DAYS.between(startDateValue,endDateValue)
+    private fun calculate(startDay: String, endDay: String): Long {
+        val dateformater: DateTimeFormatter = DateTimeFormatter.ofPattern("d/M/u")
+        val startDateValue = LocalDate.parse(startDay, dateformater)
+        val endDateValue = LocalDate.parse(endDay, dateformater)
+        val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
         return days
     }
 
@@ -249,18 +250,40 @@ class HomeFragment : Fragment() {
         }
 
         view.img_search_trip.setOnClickListener {
-            TripHelper.instance.city = cityName
-            TripHelper.instance.district = district
-            TripHelper.instance.adults = edt_adults.text.toString()
-            TripHelper.instance.children = edt_children.text.toString()
-            TripHelper.instance.cityHotel = exploreCity
-            TripHelper.instance.days = calculate(tv_start_day.text.toString(),tv_end_day.text.toString()).toString()
-            var manager : FragmentManager = activity!!.supportFragmentManager
-            var transition : FragmentTransaction = manager.beginTransaction()
-            val fragment : Fragment = SearchFragment()
-            transition.replace(R.id.layout_search,fragment).commit()
-            activity!!.chip_navigation.setItemSelected(R.id.bottom_nav_search)
-            true
+            if (tv_start_day.text.equals("--/--/----") || tv_end_day.text.equals("--/--/----")) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.select_a_reservation),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                if (calculate(tv_start_day.text.toString(), tv_end_day.text.toString()) < 0) {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.at_least_one_day),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    TripHelper.instance.city = cityName
+                    TripHelper.instance.district = district
+                    TripHelper.instance.adults = edt_adults.text.toString()
+                    TripHelper.instance.children = edt_children.text.toString()
+                    TripHelper.instance.cityHotel = exploreCity
+                    TripHelper.instance.days =
+                        calculate(
+                            tv_start_day.text.toString(),
+                            tv_end_day.text.toString()
+                        ).toString()
+                    TripHelper.instance.starDay = tv_start_day.text.toString()
+                    TripHelper.instance.endDay = tv_end_day.text.toString()
+                    val manager: FragmentManager = activity!!.supportFragmentManager
+                    val transition: FragmentTransaction = manager.beginTransaction()
+                    val fragment: Fragment = SearchFragment()
+                    transition.replace(R.id.layout_search, fragment).commit()
+                    activity!!.chip_navigation.setItemSelected(R.id.bottom_nav_search)
+                    true
+                }
+            }
         }
 
         view.tv_start_day.setOnClickListener {

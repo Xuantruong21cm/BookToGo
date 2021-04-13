@@ -1,5 +1,6 @@
 package com.example.booktogo.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -12,12 +13,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.booktogo.R
 import com.example.booktogo.model.HotelExplore
-import com.example.booktogo.model.PlaceExplore
 import kotlinx.android.synthetic.main.item_hotel_explore.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context) :
     RecyclerView.Adapter<HotelViewAdapter.ViewHolder>() {
@@ -61,12 +65,15 @@ class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context)
         }
     }
 
+
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val hotelExplore : HotelExplore = list[position]
         decodedBitmap(hotelExplore.details1,holder)
         holder.tv_hotelName_explore.text = hotelExplore.nameHotel
         holder.tv_level_hotel_explore.text = hotelExplore.levelHotel
-        holder.tv_price_explore.text = hotelExplore.priceRange
+        val decimalFormat =DecimalFormat("###,###,###")
+        holder.tv_price_explore.text =decimalFormat.format(hotelExplore.priceRange.toInt())+ " đ"
     }
     fun setHotelViewAdapter(listener : HotelViewListener){
         this.listener = listener

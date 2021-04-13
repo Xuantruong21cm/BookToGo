@@ -18,6 +18,7 @@
         tools:src="@drawable/hoguom" />
 
     <TextView
+        android:maxEms="10"
         android:id="@+id/tv_hotelName_explore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

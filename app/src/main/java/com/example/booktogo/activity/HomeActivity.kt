@@ -13,7 +13,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.booktogo.R
-import com.example.booktogo.fragment.BookmarkFragment
+import com.example.booktogo.fragment.FavouriteFragment
 import com.example.booktogo.fragment.HomeFragment
 import com.example.booktogo.fragment.SearchFragment
 import com.example.booktogo.fragment.UserFragment
@@ -32,7 +32,6 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.log
 
 class HomeActivity : AppCompatActivity() {
     companion object {
@@ -43,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
     }
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
-    private val bookmarkFragment = BookmarkFragment()
+    private val bookmarkFragment = FavouriteFragment()
     private val userFragment = UserFragment()
     private var activeFragment : Fragment = homeFragment
 
@@ -53,7 +52,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         chip_navigationView = chip_navigation
-        //supportFragmentManager.beginTransaction().replace(R.id.layout_home, HomeFragment()).commit()
         supportFragmentManager.beginTransaction().apply {
             add(R.id.layout_home,userFragment).hide(userFragment)
             add(R.id.layout_home,bookmarkFragment).hide(bookmarkFragment)

@@ -2,20 +2,15 @@ package com.example.booktogo.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.booktogo.Helper.AccountHelper
-import com.example.booktogo.Helper.ExploreHelper
 import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
-import com.example.booktogo.activity.HomeActivity
-import com.example.booktogo.adapter.HotelExploreAdapter
 import com.example.booktogo.adapter.HotelViewAdapter
 import com.example.booktogo.model.HotelExplore
 import com.google.firebase.database.DataSnapshot
@@ -24,13 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_explore.view.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
 import java.text.Normalizer
 import java.util.regex.Pattern
 
@@ -40,6 +29,7 @@ class SearchFragment : Fragment() {
     lateinit var hotelViewAdapter: HotelViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(

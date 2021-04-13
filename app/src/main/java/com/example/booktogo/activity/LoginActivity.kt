@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initAnimation()
+        //applicationContext.deleteDatabase("favourite")
 
         GlobalScope.launch(Dispatchers.IO) {
             val valuePass = read("rememberPass") ?: ""

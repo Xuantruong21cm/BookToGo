@@ -7,6 +7,8 @@ class TripHelper {
     var adults : String? = null
     var children : String? = null
     var cityHotel : String? = null
+    var starDay : String? = null
+    var endDay : String? = null
     companion object{
         var instance : TripHelper = TripHelper()
     }

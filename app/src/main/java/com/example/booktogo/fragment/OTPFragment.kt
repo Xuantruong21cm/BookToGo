@@ -59,7 +59,7 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
                     .show()
             } else {
                 val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    AccountHelper.instance.codeOTP,
+                    AccountHelper.instance.codeOTP!!,
                     view.otpView.text.toString()
                 )
                 register(credential)

@@ -9,12 +9,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.room.Room
 import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.adapter.ExploreAdapter
+import com.example.booktogo.adapter.HotelFavouriteAdapter
 import com.example.booktogo.adapter.NearbyAdapter
+import com.example.booktogo.room.Hotel
+import com.example.booktogo.room.HotelDatabase
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -26,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DecimalFormat
 
 
 class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
@@ -62,12 +68,14 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
     var security_camera: String? = null
     var smoke: String? = null
 
-    var adults : String? = null
-    var chils : String? = null
-    var days : String? = null
+    var adults: String? = null
+    var chils: String? = null
+    var days: String? = null
 
     lateinit var nearbyList: ArrayList<String>
     lateinit var adapter: NearbyAdapter
+
+    var db: HotelDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,15 +83,61 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_hotel_details, container, false)
         inintValue()
-        val mapFragment: SupportMapFragment =
-            childFragmentManager.findFragmentById(R.id.fragment_small_map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
         initView(view)
         initListener(view)
         return view
     }
 
     private fun initListener(view: View) {
+
+        view.img_favourite_hotel.setOnClickListener {
+            val hotel: Hotel = Hotel(
+                addressHotel,
+                idHotel!!,
+                levelHotel,
+                nameHotel,
+                priceRange,
+                lat.toString(),
+                lng.toString(),
+                details1,
+                details2,
+                details3,
+                details4,
+                details5,
+                details6,
+                details7,
+                details8,
+                details9,
+                nearby1,
+                nearby2,
+                nearby3,
+                nearby4,
+                nearby5,
+                clean_room,
+                elevator,
+                family,
+                free_wifi,
+                hot_tub,
+                laundry,
+                reception,
+                security_camera,
+                smoke
+            )
+
+            val check = db!!.hotelDAO().findById(idHotel!!)
+            if (check == null){
+                val result = db!!.hotelDAO().insertAll(hotel)
+                if (result != null){
+
+                    Toast.makeText(requireContext(),"Added to favorites list",Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(requireContext(),"Add failure",Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(requireContext(),"Hotel has existed in favorites",Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         view.frame_more_details.setOnClickListener {
             val manager = activity!!.supportFragmentManager
@@ -102,10 +156,22 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
             transition.add(R.id.layout_home, fragment).commit()
             transition.addToBackStack(fragment::class.java.simpleName)
         }
+
+        view.btn_chooseThisHotel_hotelDetails.setOnClickListener {
+            val manager = activity!!.supportFragmentManager
+            val transition = manager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+            val fragment = DetailBookingFragment()
+            transition.add(R.id.layout_home_detail, fragment).commit()
+            transition.addToBackStack(fragment::class.java.simpleName)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
+        val mapFragment: SupportMapFragment =
+            childFragmentManager.findFragmentById(R.id.fragment_small_map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
         HomeActivity.chip_navigationView.visibility = View.GONE
 
         view.img_details_1.setImageBitmap(decodedBitmap(details1.toString()))
@@ -114,7 +180,8 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
         view.img_details_4.setImageBitmap(decodedBitmap(details4.toString()))
         view.img_details_5.setImageBitmap(decodedBitmap(details5.toString()))
         view.tv_address_Hotel_Details.text = addressHotel
-        view.tv_priceRange_hotelDetails.text = priceRange
+        val decimalFormat = DecimalFormat("###,###,###")
+        view.tv_priceRange_hotelDetails.text = decimalFormat.format(priceRange!!.toInt()) + " đ"
         view.tv_adults_count.text = "Adults : $adults"
         view.tv_child_count.text = "Children : $chils"
         view.tv_days_count.text = "Days : $days"
@@ -215,6 +282,12 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
         nearbyList.add(nearby3!!)
         nearbyList.add(nearby4!!)
         nearbyList.add(nearby5!!)
+
+        db = Room.databaseBuilder(
+            activity!!.applicationContext,
+            HotelDatabase::class.java,
+            "favourite"
+        ).allowMainThreadQueries().build()
     }
 
     fun decodedBitmap(source: String): Bitmap {

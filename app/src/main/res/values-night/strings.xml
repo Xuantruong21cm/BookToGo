@@ -5,4 +5,10 @@
     <string name="phoneNumber">Phone Number</string>
     <string name="total_adults">Total Adults</string>
     <string name="total_children">Total Children</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="booking_this_room">Booking This Room</string>
+    <string name="at_least_one_day">Please Book At Least One Day</string>
+    <string name="select_a_reservation">Please Select A Reservation Date</string>
 </resources>

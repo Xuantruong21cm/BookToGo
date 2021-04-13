@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:onClick="noClick"
+    android:id="@+id/layout_home_detail"
     tools:context=".fragment.HotelDetailsFragment"
     tools:ignore="OnClick">
 
@@ -35,7 +36,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
+                    <com.example.booktogo.customView.RoundRectCornerImageView
                         android:id="@+id/img_details_1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -44,7 +45,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/hoguom" />
 
-                    <ImageView
+                    <com.example.booktogo.customView.RoundRectCornerImageView
                         android:id="@+id/img_details_2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -62,7 +63,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout_view1">
 
-                    <ImageView
+                    <com.example.booktogo.customView.RoundRectCornerImageView
                         android:id="@+id/img_details_3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -71,7 +72,7 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/hoguom" />
 
-                    <ImageView
+                    <com.example.booktogo.customView.RoundRectCornerImageView
                         android:id="@+id/img_details_4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -87,7 +88,7 @@
                         android:layout_margin="2dp"
                         android:layout_weight="1">
 
-                        <ImageView
+                        <com.example.booktogo.customView.RoundRectCornerImageView
                             android:id="@+id/img_details_5"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -694,6 +695,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <ImageView
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/img_favourite_hotel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/favourite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <FrameLayout
             android:id="@+id/frameLayout_chooseHotel"
             android:layout_width="match_parent"
@@ -724,7 +735,7 @@
                 android:gravity="center"
                 android:textColor="#F44336"
                 android:textSize="18sp"
-                tools:text="0 - 999.999 VNĐ" />
+                tools:text="999.999 VNĐ" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

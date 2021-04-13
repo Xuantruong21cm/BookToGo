@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#FFFFFF"
+    android:onClick="noClick"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DetailBookingFragment"
+    tools:ignore="OnClick">
+    <androidx.core.widget.NestedScrollView
+        android:layout_marginBottom="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="#47E0D7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ing_back_detailBooking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/back_detail_booking"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/details_booking_label"
+                        app:layout_constraintBottom_toBottomOf="@+id/ing_back_detailBooking"
+                        app:layout_constraintStart_toEndOf="@+id/ing_back_detailBooking"
+                        app:layout_constraintTop_toTopOf="@+id/ing_back_detailBooking" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.example.booktogo.customView.RoundRectCornerImageView
+                android:scaleType="fitXY"
+                app:img_radius="20"
+                tools:src="@drawable/hoguom"
+                android:id="@+id/img_avatar_detailBooking"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/tv_nameHotel_detailBooking"
+                android:textSize="20sp"
+                android:textColor="#2D3A4C"
+                android:fontFamily="@font/quicksand_regular"
+                android:layout_marginStart="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar_detailBooking"
+                app:layout_constraintTop_toTopOf="@+id/img_avatar_detailBooking"
+                tools:text="Ha Noi Malo" />
+
+            <TextView
+                android:id="@+id/tv_level_hotel_detailBooking"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:fontFamily="@font/quicksand_regular"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/img_avatar_detailBooking"
+                app:layout_constraintTop_toBottomOf="@+id/tv_nameHotel_detailBooking"
+                tools:text="4" />
+
+            <ImageView
+                android:id="@+id/img_startLevel_detailsBooking"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_level_hotel_detailBooking"
+                app:layout_constraintStart_toEndOf="@+id/tv_level_hotel_detailBooking"
+                app:layout_constraintTop_toTopOf="@+id/tv_level_hotel_detailBooking" />
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#707070"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_avatar_detailBooking" />
+
+            <ImageView
+                android:id="@+id/img_calendar_detailBooking"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar"
+                app:layout_constraintTop_toBottomOf="@id/view_1" />
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:textSize="18sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/img_calendar_detailBooking"
+                app:layout_constraintBottom_toBottomOf="@+id/img_calendar_detailBooking"
+                android:id="@+id/tv_startDay_detailBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/img_calendar_detailBooking"
+                tools:text="04/04/2020" />
+
+            <ImageView
+                android:id="@+id/img_strikethrough"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_startDay_detailBooking"
+                app:layout_constraintTop_toTopOf="@+id/tv_startDay_detailBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/strikethrough"
+                app:layout_constraintStart_toEndOf="@+id/tv_startDay_detailBooking" />
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:textSize="18sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintTop_toTopOf="@+id/img_strikethrough"
+                app:layout_constraintBottom_toBottomOf="@+id/img_strikethrough"
+                android:id="@+id/tv_endDay_detailBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/img_strikethrough"
+                tools:text="04/04/2020" />
+
+            <TextView
+                app:layout_constraintBottom_toBottomOf="@+id/tv_endDay_detailBooking"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="18dp"
+                app:layout_constraintTop_toBottomOf="@+id/view_1"
+                android:id="@+id/tv_days_Detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="#2D3A4C"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="1 Day" />
+
+            <ImageView
+                android:id="@+id/img_adult_icon_label"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_calendar_detailBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/adult"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_adult_icon_label"
+                app:layout_constraintTop_toTopOf="@+id/img_adult_icon_label"
+                app:layout_constraintStart_toEndOf="@+id/img_adult_icon_label"
+                android:id="@+id/tv_adults_detailsBooking"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="#2D3A4C"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Adults : 5"/>
+
+            <ImageView
+                android:id="@+id/img_child_icon_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/child"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/img_adult_icon_label"/>
+
+            <TextView
+                android:id="@+id/tv_children_detailsBooking"
+                android:textColor="#2D3A4C"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/img_child_icon_label"
+                app:layout_constraintBottom_toBottomOf="@+id/img_child_icon_label"
+                app:layout_constraintStart_toEndOf="@+id/img_child_icon_label"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/quicksand_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Children : 2"/>
+
+
+            <ImageView
+                android:id="@+id/img_contact_icon_label"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_child_icon_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/contact"/>
+
+            <ImageView
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@+id/img_contact_icon_label"
+                app:layout_constraintBottom_toBottomOf="@+id/img_contact_icon_label"
+                app:layout_constraintTop_toTopOf="@+id/img_contact_icon_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/communications"/>
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/img_contact_icon_label"
+                android:id="@+id/tv_fullname_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/full_name"/>
+
+            <EditText
+                tools:text="Xuân Trường DeepTry"
+                android:textColor="#2D3A4C"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/edt_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fullname_label" />
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/edt_fullname"
+                android:id="@+id/tv_email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"/>
+
+            <EditText
+                tools:text="Xuân Trường DeepTry"
+                android:textColor="#2D3A4C"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email_label" />
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/edt_email"
+                android:id="@+id/tv_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"/>
+
+            <EditText
+                tools:text="Xuân Trường DeepTry"
+                android:textColor="#2D3A4C"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_label" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:id="@+id/frameLayout_chooseHotel"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/btn_booking_this_room"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_choose_this_hotel"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/booking_this_room"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_price_detailBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:textColor="#F44336"
+            android:textSize="18sp"
+            tools:text="999.999 VNĐ" />
+    </FrameLayout>
+
+</FrameLayout>

@@ -4,7 +4,6 @@
     <string name="password">Password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="select_gender">Select Gender</string>
     <string name="phoneNumber">Phone Number</string>
@@ -19,7 +18,7 @@
     <string name="see_hotel_details">See hotel <br />details</string>
     <string name="map_key" translatable="false">AIzaSyA1hV1qrPXdZMHp_6WAa3kHPQKdXLjHBlE</string>
     <string name="view_location">View Location</string>
-    <string name="choose_this_hotel">Choose This Hotel</string>
+    <string name="choose_this_hotel">Choose This Room</string>
     <string name="free_wifi">Free Wifi</string>
     <string name="clean_room">Clean Room</string>
     <string name="elevator">Elevator</string>
@@ -30,4 +29,10 @@
     <string name="reception">Reception</string>
     <string name="security_camera">Security Camera</string>
     <string name="smoke">Smoke</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="booking_this_room">Booking This Room</string>
+    <string name="at_least_one_day">Please Book At Least One Day</string>
+    <string name="select_a_reservation">Please Select A Reservation Date</string>
 </resources>

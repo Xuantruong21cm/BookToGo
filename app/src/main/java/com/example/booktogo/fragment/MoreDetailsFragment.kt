@@ -50,6 +50,11 @@ class MoreDetailsFragment : Fragment() {
                 transition.addToBackStack(fragment::class.java.simpleName)
             }
         })
+
+        view.img_close_more_details.setOnClickListener {
+            activity!!.onBackPressed()
+
+        }
         return view
     }
 }

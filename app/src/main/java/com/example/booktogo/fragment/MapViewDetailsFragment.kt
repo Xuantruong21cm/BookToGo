@@ -26,6 +26,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_map_view_details.view.*
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.Exception
 import kotlin.collections.ArrayList
@@ -60,7 +61,8 @@ class MapViewDetailsFragment : Fragment(), OnMapReadyCallback {
             mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map_details) as SupportMapFragment
         mapFragment!!.getMapAsync(this)
         view.tv_hotelName_mapDetails.text = hotelName
-        view.tv_priceRange_mapDetails.text = "$rangePrice VNĐ"
+        val decimalFormat = DecimalFormat("###,###,###")
+        view.tv_priceRange_mapDetails.text =decimalFormat.format(rangePrice!!.toInt()) + " đ"
         initListener(view)
         return view
     }
@@ -118,7 +120,6 @@ class MapViewDetailsFragment : Fragment(), OnMapReadyCallback {
             MarkerOptions().position(latlng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hotel))
         )
-
         val mylocation: LatLng = LatLng(mylat!!, mylng!!)
         map.addMarker(
             MarkerOptions().position(mylocation)
