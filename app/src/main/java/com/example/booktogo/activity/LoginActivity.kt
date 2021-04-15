@@ -216,17 +216,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initAnimation() {
-        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-            // Note that system bars will only be "visible" if none of the
-            // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
-            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-
-            } else {
-                // TODO: The system bars are NOT visible. Make any desired
-                // adjustments to your UI, such as hiding the action bar or
-                // other navigational controls.
-            }
-        }
         topAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.top_animation)
         bottomAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.bottom_animation)
         leftAnim = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.left_animation)

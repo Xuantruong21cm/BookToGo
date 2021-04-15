@@ -178,6 +178,7 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
         view.recyclerView_nearby_location.adapter = adapter
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initListener(view: View) {
         calendar = Calendar.getInstance()
@@ -203,9 +204,9 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
             month = calendar[Calendar.MONTH]
             day = calendar[Calendar.DAY_OF_MONTH]
 
-            val datePickerDialog: DatePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                { view, year, month, dayOfMonth ->
                     requireView().tv_end_day.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
                 year!!,
@@ -237,8 +238,6 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
                         getString(R.string.at_least_one_day),
                         Toast.LENGTH_SHORT
                     ).show()
-                } else {
-
                 }
             }
         }

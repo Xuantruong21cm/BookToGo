@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_app"
+    android:onClick="noClick"
+    android:layout_height="match_parent"
+    tools:context=".fragment.InformationFragment"
+    tools:ignore="OnClick">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="16dp">
+
+                <ImageView
+                    android:id="@+id/img_back_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back_explore"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:gravity="center"
+                    android:text="@string/information"
+                    android:textColor="#03A9F4"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.666" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tv_fullname_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/full_name_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
+        <TextView
+            android:id="@+id/tv_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fullname_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_fullname_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_fullname_label"
+            tools:text="Xuân Trường Deep Try" />
+
+        <TextView
+            android:id="@+id/tv_userName_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/user_name_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fullname_label" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_userName_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_userName_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_userName_label"
+            tools:text="Xuantruong21" />
+
+        <TextView
+            android:id="@+id/tv_gender_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/gender_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName_label" />
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_gender_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_gender_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_gender_label"
+            tools:text="20" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/age_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender_label" />
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/textView6"
+            tools:text="Male" />
+
+        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_email_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/email_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:gravity="center"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_email_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_email_info"
+            app:layout_constraintTop_toTopOf="@+id/tv_email_info"
+            tools:text="Xuantruongcarbon@gmail.com" />
+
+        <TextView
+            android:id="@+id/tv_phone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/quicksand_regular"
+            android:text="@string/phone_info"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email_info" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_phone_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_phone_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_phone_label"
+            tools:text="0975414741" />
+
+        <TextView
+            android:id="@+id/tv_password_label"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_label" />
+
+        <ImageView
+            android:id="@+id/img_edit_pass"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_pass"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_password_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_password_label" />
+
+        <TextView
+            android:id="@+id/tv_passs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_regular"
+            android:inputType="textPassword"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_password_label"
+            app:layout_constraintEnd_toStartOf="@+id/img_edit_pass"
+            app:layout_constraintStart_toEndOf="@+id/tv_password_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_password_label"
+            tools:text="211120"
+            tools:ignore="TextViewEdits" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            android:id="@+id/layout_changePass"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password_label">
+
+            <ImageView
+                android:id="@+id/img_cancel_changePass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/cancel_change_pass"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_old_password"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/old_password"
+                android:textColor="#03A9F4"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_cancel_changePass" />
+
+            <EditText
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:id="@+id/edt_old_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_old_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_old_password"
+                app:layout_constraintTop_toTopOf="@+id/tv_old_password" />
+
+            <TextView
+                android:textColor="#03A9F4"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/tv_new_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_old_password" />
+
+            <EditText
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:id="@+id/edt_new_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_new_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_new_password"
+                app:layout_constraintTop_toTopOf="@+id/tv_new_password" />
+
+            <TextView
+                android:id="@+id/tv_confirm_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/confirm_password"
+                android:textColor="#03A9F4"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_new_password" />
+
+            <EditText
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="4dp"
+                android:id="@+id/edt_confirm_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_confirm_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_confirm_password"
+                app:layout_constraintTop_toTopOf="@+id/tv_confirm_password" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/btn_changePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_choose_this_hotel"
+                android:text="@string/change_password"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_confirm_password" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

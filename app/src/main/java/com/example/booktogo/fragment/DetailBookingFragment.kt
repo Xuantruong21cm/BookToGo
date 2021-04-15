@@ -24,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.StringBuilder
 import java.text.DecimalFormat
 import java.util.concurrent.ThreadLocalRandom
 
@@ -52,8 +51,7 @@ class DetailBookingFragment : Fragment() {
         view.btn_booking_this_room.setOnClickListener {
             val idBooking = ThreadLocalRandom.current().nextInt(100000, 999999)
             val idHotel = HotelHelper.instance.idHotel
-            val date_time =
-                view.tv_startDay_detailBooking.text.toString() + " - " + view.tv_endDay_detailBooking.text.toString()
+            val date_time = view.tv_startDay_detailBooking.text.toString() + " - " + view.tv_endDay_detailBooking.text.toString()
             val days = TripHelper.instance.days
             val nameHotel = HotelHelper.instance.nameHotel
             val addressHotel = HotelHelper.instance.addressHotel

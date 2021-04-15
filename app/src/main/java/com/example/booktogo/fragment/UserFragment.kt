@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.R
+import com.example.booktogo.activity.HomeActivity
 import kotlinx.android.synthetic.main.fragment_user.view.*
 
 
@@ -32,7 +33,12 @@ class UserFragment : Fragment() {
 
     private fun initListener(view: View) {
         view.tv_infomation.setOnClickListener {
-
+            val manager = activity!!.supportFragmentManager
+            val transition = manager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+            val fragment = InformationFragment()
+            transition.add(R.id.layout_user, fragment).commit()
+            transition.addToBackStack(fragment::class.java.simpleName)
         }
     }
 
@@ -48,5 +54,4 @@ class UserFragment : Fragment() {
             BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
         return decodedByte
     }
-
 }

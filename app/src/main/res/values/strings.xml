@@ -39,4 +39,20 @@
     <string name="history">History</string>
     <string name="support">Support</string>
     <string name="log_out">Log Out</string>
+    <string name="information">Information</string>
+    <string name="full_name_info">Full Name :</string>
+    <string name="user_name_info">User Name :</string>
+    <string name="email_info">Email :</string>
+    <string name="phone_info">Phone :</string>
+    <string name="gender_info">Gender :</string>
+    <string name="age_info">Age :</string>
+    <string name="password_info">Password :</string>
+    <string name="old_password">Old Password :</string>
+    <string name="new_password">New Password :</string>
+    <string name="confirm_password">Confirm Password :</string>
+    <string name="change_password">Change Password</string>
+    <string name="please_enter_enough_data">Please enter enough data</string>
+    <string name="new_password_not_match">New password not match</string>
+    <string name="old_password_not_true">Old password not true</string>
+    <string name="change_password_complete">Change password complete</string>
 </resources>

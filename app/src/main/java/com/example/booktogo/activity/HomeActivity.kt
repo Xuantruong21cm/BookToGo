@@ -95,9 +95,8 @@ class HomeActivity : AppCompatActivity() {
                 val location: Location? = task.result
                 if (location != null) {
                     try {
-                        val geocoder: Geocoder = Geocoder(this@HomeActivity, Locale.getDefault())
-                        val address: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                        val geocoder = Geocoder(this@HomeActivity, Locale.getDefault())
+                        geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     } catch (e: Exception) {
                     }
                 }
