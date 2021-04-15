@@ -18,6 +18,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -327,6 +328,7 @@ class HomeFragment : Fragment() {
         cityName = "Hà Nội"
         district = districtList_HaNoi[0]
         exploreCity = "HotelHaNoi"
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         view.tv_hi_name.text =
             "Hi ! " + AccountHelper.instance.firstname + " " + AccountHelper.instance.lastname
         if (AccountHelper.instance.avatar!!.length <= 1) {

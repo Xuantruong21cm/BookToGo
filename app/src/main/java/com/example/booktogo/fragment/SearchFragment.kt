@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
@@ -183,6 +184,7 @@ class SearchFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         if (AccountHelper.instance.userName!!.length >= 10) {
             view.tv_username_guest.text = AccountHelper.instance.userName
             view.tv_username_guest.textSize = 16F

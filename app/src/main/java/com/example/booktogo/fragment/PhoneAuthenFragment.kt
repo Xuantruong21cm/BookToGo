@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -111,6 +112,7 @@ class PhoneAuthenFragment : Fragment() {
     }
 
     private fun initView(view: View) {
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         topAnim = AnimationUtils.loadAnimation(context, R.anim.top_animation)
         bottomAnim = AnimationUtils.loadAnimation(context, R.anim.bottom_animation)
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)

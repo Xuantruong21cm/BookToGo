@@ -11,4 +11,8 @@
     <string name="booking_this_room">Booking This Room</string>
     <string name="at_least_one_day">Please Book At Least One Day</string>
     <string name="select_a_reservation">Please Select A Reservation Date</string>
+    <string name="user_information">User Information</string>
+    <string name="history">History</string>
+    <string name="support">Support</string>
+    <string name="log_out">Log Out</string>
 </resources>

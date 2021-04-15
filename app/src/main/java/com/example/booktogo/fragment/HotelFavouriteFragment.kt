@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
@@ -115,6 +116,7 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         HomeActivity.chip_navigationView.visibility = View.GONE
         val mapFragment: SupportMapFragment =
             childFragmentManager.findFragmentById(R.id.fragment_small_map) as SupportMapFragment
