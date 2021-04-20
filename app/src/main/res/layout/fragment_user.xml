@@ -89,6 +89,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_infomation" />
 
         <TextView
+            android:id="@+id/tv_booking_history"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#0AA8EF"

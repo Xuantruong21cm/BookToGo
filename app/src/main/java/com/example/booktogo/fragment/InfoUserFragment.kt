@@ -38,7 +38,7 @@ class InfoUserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_info_user, container, false)
         initView(view)
         view.spinner_gender.setAdapter(genderAdapter)
@@ -72,10 +72,10 @@ class InfoUserFragment : Fragment() {
 
 
 
-                var manager: FragmentManager = activity!!.supportFragmentManager
-                var transition: FragmentTransaction = manager.beginTransaction()
+                val manager: FragmentManager = activity!!.supportFragmentManager
+                val transition: FragmentTransaction = manager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
-                var fragment : Fragment = PhoneAuthenFragment()
+                val fragment : Fragment = PhoneAuthenFragment()
                 transition.replace(R.id.layout_info_user,fragment).commit()
                 transition.addToBackStack(fragment::class.java.simpleName)
             }

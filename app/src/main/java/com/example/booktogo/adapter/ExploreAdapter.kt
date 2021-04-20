@@ -36,7 +36,7 @@ class ExploreAdapter(var list: ArrayList<PlaceExplore>, var context: Context) :
         }
 
         override fun onClick(v: View?) {
-            listener.onClick(list[adapterPosition])
+            listener.onClick(list[bindingAdapterPosition])
         }
     }
 

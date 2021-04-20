@@ -55,4 +55,6 @@
     <string name="new_password_not_match">New password not match</string>
     <string name="old_password_not_true">Old password not true</string>
     <string name="change_password_complete">Change password complete</string>
+    <string name="booking_history">Booking History</string>
+    <string name="double_click_back">Please click BACK again to exit</string>
 </resources>

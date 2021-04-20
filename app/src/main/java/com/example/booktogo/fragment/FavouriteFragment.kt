@@ -96,7 +96,7 @@ class FavouriteFragment : Fragment() {
                 HotelHelper.instance.smoke = hotelExplore.smoke
 
                 val manager : FragmentManager = activity!!.supportFragmentManager
-                val transition : FragmentTransaction = manager.beginTransaction()
+                val transition : FragmentTransaction = manager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
                 val fragment : Fragment = HotelFavouriteFragment()
                 transition.replace(R.id.layout_favoutite,fragment).commit()
                 transition.addToBackStack(fragment::class.java.simpleName)

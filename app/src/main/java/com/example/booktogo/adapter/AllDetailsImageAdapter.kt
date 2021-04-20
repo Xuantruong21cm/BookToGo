@@ -27,7 +27,7 @@ class AllDetailsImageAdapter(var list : ArrayList<String>, var context: Context)
         }
 
         override fun onClick(v: View?) {
-            listener.onClick(adapterPosition)
+            listener.onClick(bindingAdapterPosition)
         }
 
     }

@@ -8,8 +8,10 @@ import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.booktogo.R
@@ -30,7 +32,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.Executor
 import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity() {
@@ -188,24 +195,22 @@ class HomeActivity : AppCompatActivity() {
                     R.id.bottom_nav_home -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                         activeFragment = homeFragment
-                        true
+
                     }
                     R.id.bottom_nav_search -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment).show(searchFragment).commit()
                         activeFragment = searchFragment
-                        true
+
                     }
                     R.id.bottom_nav_bookmark -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment).show(bookmarkFragment).commit()
                         activeFragment = bookmarkFragment
-                        true
+
                     }
                     R.id.bottom_nav_user -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment).show(userFragment).commit()
                         activeFragment = userFragment
-                        true
                     }
-                    else -> false
                 }
 //                supportFragmentManager.beginTransaction().replace(R.id.layout_home, fragment!!)
 //                    .commit()
@@ -236,4 +241,5 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun noClick(view: View) {}
+
 }

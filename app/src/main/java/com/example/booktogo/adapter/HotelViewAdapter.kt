@@ -42,7 +42,7 @@ class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context)
         }
 
         override fun onClick(v: View?) {
-            listener.HotelViewwOnClick(list[adapterPosition])
+            listener.HotelViewwOnClick(list[bindingAdapterPosition])
         }
     }
 

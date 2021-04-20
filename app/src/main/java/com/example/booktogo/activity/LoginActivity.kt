@@ -21,11 +21,12 @@ import com.example.booktogo.R
 import com.example.booktogo.fragment.RegisterFragment
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
+val Context.dataStorePass: DataStore<Preferences> by preferencesDataStore(name = "rememberPass")
+val Context.dataStoreUser: DataStore<Preferences> by preferencesDataStore(name = "rememberUser")
+val Context.dataStoreCheck: DataStore<Preferences> by preferencesDataStore(name = "rememberCheck")
 
 class LoginActivity : AppCompatActivity() {
     lateinit var topAnim: Animation
@@ -34,9 +35,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var rightAnim: Animation
     lateinit var userName: String
     lateinit var passWord: String
-    val Context.dataStorePass: DataStore<Preferences> by preferencesDataStore(name = "rememberPass")
-    val Context.dataStoreUser: DataStore<Preferences> by preferencesDataStore(name = "rememberUser")
-    val Context.dataStoreCheck: DataStore<Preferences> by preferencesDataStore(name = "rememberCheck")
+    private var doubleBackToExitPressedOnce : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +120,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 }
                             } else {
+
                                 GlobalScope.launch(Dispatchers.IO) {
                                     dataStorePass.edit { it.clear() }
                                     dataStoreUser.edit { it.clear() }
@@ -236,4 +236,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun noClick(view: View) {}
+
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce){
+            super.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this@LoginActivity,getString(R.string.double_click_back),Toast.LENGTH_SHORT).show()
+        GlobalScope.launch(Dispatchers.IO){
+            delay(2000)
+            doubleBackToExitPressedOnce = false
+        }
+    }
 }

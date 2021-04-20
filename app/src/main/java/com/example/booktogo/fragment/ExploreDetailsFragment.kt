@@ -14,10 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.booktogo.Helper.HotelHelper
-import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.adapter.NearbyAdapter
@@ -27,41 +24,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.*
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.*
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_1
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_2
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_3
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_4
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_5
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_star_1
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_star_2
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_star_3
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_star_4
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_star_5
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_clean_room
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_elevator
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_family_room
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_hot_tub
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_laundry
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_reception
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_security_camera
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_smoke
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.layout_wifi_free
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.recyclerView_nearby_location
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.tv_address_Hotel_Details
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.tv_end_day
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.tv_hotelName_details
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.tv_priceRange_hotelDetails
-import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.tv_start_day
+import kotlinx.android.synthetic.main.fragment_explore_details.view.*
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 
-class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
+class ExploreDetailsFragment : Fragment(),OnMapReadyCallback {
     lateinit var map: GoogleMap
     var addressHotel: String? = null
     var idHotel: String? = null
@@ -107,7 +77,7 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view : View = inflater.inflate(R.layout.fragment_hotel_favourite, container, false)
+        val view : View = inflater.inflate(R.layout.fragment_explore_details, container, false)
         initValue()
         initView(view)
         initListener(view)
@@ -220,19 +190,19 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
             val transition = manager.beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
             val fragment = MapViewDetailsFragment()
-            transition.add(R.id.layout_favoutite, fragment).commit()
+            transition.add(R.id.layout_home_fragment, fragment).commit()
             transition.addToBackStack(fragment::class.java.simpleName)
         }
 
         view.btn_chooseThisHotel_hotelDetails.setOnClickListener {
-            if (tv_start_day.text.equals("--/--/----") || tv_end_day.text.equals("--/--/----")) {
+            if (view.tv_start_day.text.equals("--/--/----") || view.tv_end_day.text.equals("--/--/----")) {
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.select_a_reservation),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                if (calculate(tv_start_day.text.toString(), tv_end_day.text.toString()) < 0) {
+                if (calculate(view.tv_start_day.text.toString(), view.tv_end_day.text.toString()) < 0) {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.at_least_one_day),

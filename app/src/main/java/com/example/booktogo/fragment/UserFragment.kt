@@ -1,6 +1,8 @@
 package com.example.booktogo.fragment
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -9,9 +11,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
+import com.example.booktogo.activity.LoginActivity
 import kotlinx.android.synthetic.main.fragment_user.view.*
 
 
@@ -39,6 +43,32 @@ class UserFragment : Fragment() {
             val fragment = InformationFragment()
             transition.add(R.id.layout_user, fragment).commit()
             transition.addToBackStack(fragment::class.java.simpleName)
+        }
+
+        view.tv_booking_history.setOnClickListener {
+            val manager = activity!!.supportFragmentManager
+            val transition = manager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+            val fragment = HistoryFragment()
+            transition.add(R.id.layout_user, fragment).commit()
+            transition.addToBackStack(fragment::class.java.simpleName)
+        }
+
+        view.btn_logOut.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(activity!!)
+            alertDialog.setCancelable(false)
+            alertDialog.setPositiveButton("Log Out",object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    val intent = Intent(activity,LoginActivity::class.java)
+                    startActivity(intent)
+                    activity!!.finish()
+                }
+            })
+            alertDialog.setNegativeButton("Cancel",object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                }
+            })
+            alertDialog.show()
         }
     }
 

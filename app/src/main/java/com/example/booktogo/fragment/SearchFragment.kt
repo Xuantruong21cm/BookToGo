@@ -26,7 +26,6 @@ import java.util.regex.Pattern
 
 class SearchFragment : Fragment() {
     lateinit var listHotel_explore: ArrayList<HotelExplore>
-    lateinit var thumbnailList: ArrayList<String>
     lateinit var hotelViewAdapter: HotelViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +35,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_search, container, false)
         if (TripHelper.instance.district != null && TripHelper.instance.adults != null && TripHelper.instance.children != null
             && TripHelper.instance.city != null && TripHelper.instance.days != null
@@ -97,7 +96,6 @@ class SearchFragment : Fragment() {
 
     private fun initDataHotel(view: View) {
         listHotel_explore = ArrayList()
-        thumbnailList = ArrayList()
         val database: FirebaseDatabase = Firebase.database
         val reference = database.getReference(TripHelper.instance.cityHotel!!).child(
             convertString(TripHelper.instance.district!!.replace("\\s".toRegex(), ""))!!
@@ -106,7 +104,7 @@ class SearchFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds: DataSnapshot in snapshot.children) {
                     //  Log.d("okok", "onDataChange: "+ds.key)
-                    Log.d("okok", "onDataChange: " + ds.child("thumbnail").child("1").value)
+                 //   Log.d("okok", "onDataChange: " + ds.child("thumbnail").child("1").value)
                     val addressHotel: String = ds.child("addressHotel").value.toString()
                     val idHotel: String = ds.child("idHotel").value.toString()
                     val levelHotel: String = ds.child("levelHotel").value.toString()
@@ -172,7 +170,7 @@ class SearchFragment : Fragment() {
                             smoke
                         )
                     )
-                    setDataHotel(requireView())
+                    setDataHotel(view)
                 }
             }
 

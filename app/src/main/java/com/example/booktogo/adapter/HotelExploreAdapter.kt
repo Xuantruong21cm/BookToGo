@@ -25,8 +25,9 @@ import kotlin.collections.ArrayList
 
 class HotelExploreAdapter(var list : ArrayList<HotelExplore>, var context: Context) :
     RecyclerView.Adapter<HotelExploreAdapter.ViewHolder>() {
+    lateinit var listener : HotelExplorerListener
 
-    inner class ViewHolder : RecyclerView.ViewHolder{
+    inner class ViewHolder : RecyclerView.ViewHolder,View.OnClickListener{
         var img_thumnail_explore : ImageView
         var tv_hotelName_explore : TextView
         var tv_level_hotel_explore : TextView
@@ -37,6 +38,11 @@ class HotelExploreAdapter(var list : ArrayList<HotelExplore>, var context: Conte
             tv_hotelName_explore = itemView.tv_hotelName_explore
             tv_level_hotel_explore = itemView.tv_level_hotel_explore
             tv_price_explore = itemView.tv_price_explore
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            listener.onClickListener(list[bindingAdapterPosition])
         }
     }
 
@@ -68,5 +74,11 @@ class HotelExploreAdapter(var list : ArrayList<HotelExplore>, var context: Conte
         }
     }
 
+    fun setOnClickListener(listener : HotelExplorerListener){
+        this.listener = listener
+    }
 
+    interface HotelExplorerListener{
+        fun onClickListener(hotel : HotelExplore)
+    }
 }

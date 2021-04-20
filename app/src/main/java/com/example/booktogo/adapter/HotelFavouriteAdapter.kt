@@ -45,10 +45,10 @@ class HotelFavouriteAdapter(var list : List<Hotel>, var context: Context) :
         override fun onClick(v: View?) {
             when(v){
                itemView -> {
-                   listener.HotelViewwOnClick(list[adapterPosition])
+                   listener.HotelViewwOnClick(list[bindingAdapterPosition])
                 }
                 img_remove_favourite -> {
-                    listener.DeleteFavourite(list[adapterPosition],adapterPosition)
+                    listener.DeleteFavourite(list[bindingAdapterPosition],bindingAdapterPosition)
                 }
             }
         }
