@@ -21,9 +21,6 @@ class RegisterFragment : Fragment() {
     lateinit var bottomAnim: Animation
     lateinit var leftAnim: Animation
     lateinit var rightAnim: Animation
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

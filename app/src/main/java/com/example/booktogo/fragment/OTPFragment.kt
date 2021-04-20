@@ -38,10 +38,6 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
     lateinit var database: FirebaseDatabase
     lateinit var reference: DatabaseReference
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

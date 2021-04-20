@@ -20,7 +20,7 @@
 
     <style name="CustomToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!-- HERE ARE THE CHANGES - Change color of different texts -->
+
         <item name="android:textColorPrimary">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
     </style>

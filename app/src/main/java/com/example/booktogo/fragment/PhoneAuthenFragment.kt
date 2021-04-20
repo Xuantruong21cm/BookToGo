@@ -41,9 +41,6 @@ class PhoneAuthenFragment : Fragment() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     lateinit var reference: DatabaseReference
     lateinit var database : FirebaseDatabase
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

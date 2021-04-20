@@ -23,9 +23,6 @@ class FavouriteFragment : Fragment() {
     lateinit var db: HotelDatabase
     lateinit var list : MutableList<Hotel>
     lateinit var adapter : HotelFavouriteAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

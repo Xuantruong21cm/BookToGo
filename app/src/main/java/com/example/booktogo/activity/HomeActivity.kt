@@ -6,12 +6,16 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.booktogo.R
@@ -218,6 +222,7 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {
@@ -225,19 +230,23 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun hideSystemUI() {
-        // Enables regular immersive mode.
-        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
-        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
-                // Set the content to appear under the system bars so that the
-                // content doesn't resize when the system bars hide and show.
+
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+                    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                // Hide the nav bar and status bar
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }else{
+            window.setDecorFitsSystemWindows(false)
+            val controller : WindowInsetsController = window.insetsController!!
+            controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
     }
 
     fun noClick(view: View) {}

@@ -17,9 +17,6 @@ import kotlinx.android.synthetic.main.fragment_image_details_slider_view.view.*
 
 class ImageDetailsSliderViewFragment : Fragment() {
     lateinit var adapter : DetailsSliderAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +31,11 @@ class ImageDetailsSliderViewFragment : Fragment() {
         view.imageSlider.setSliderAdapter(adapter)
         view.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM)
         view.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        view.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH)
-        view.imageSlider.setIndicatorSelectedColor(Color.WHITE)
-        view.imageSlider.setIndicatorUnselectedColor(Color.GRAY)
-        view.imageSlider.setScrollTimeInSec(3)
-        view.imageSlider.setAutoCycle(true)
+        view.imageSlider.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+        view.imageSlider.indicatorSelectedColor = Color.WHITE
+        view.imageSlider.indicatorUnselectedColor = Color.GRAY
+        view.imageSlider.scrollTimeInSec = 3
+        view.imageSlider.isAutoCycle = true
         view.imageSlider.startAutoCycle()
         view.imageSlider.currentPagePosition = HotelHelper.instance.detailsPotision!!
 

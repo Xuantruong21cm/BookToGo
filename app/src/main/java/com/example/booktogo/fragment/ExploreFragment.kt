@@ -30,9 +30,6 @@ class ExploreFragment : Fragment() {
     lateinit var listHotel_explore: ArrayList<HotelExplore>
     lateinit var thumbnailList: ArrayList<String>
     lateinit var hotelExploreAdapter: HotelExploreAdapter
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
