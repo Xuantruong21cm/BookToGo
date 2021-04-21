@@ -15,6 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,13 +32,15 @@ import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
+import com.example.booktogo.adapter.DiscountAdapter
 import com.example.booktogo.adapter.ExploreAdapter
+import com.example.booktogo.model.Discount
 import com.example.booktogo.model.PlaceExplore
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -77,11 +80,14 @@ class HomeFragment : Fragment() {
     var month: Int? = null
     var day: Int? = null
     lateinit var calendar: Calendar
+    lateinit var discountAdapter: DiscountAdapter
+    lateinit var discountList : ArrayList<Discount>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cityList = ArrayList()
+        discountList = ArrayList()
         cityList.add("Hà Nội")
         cityList.add("Đà Nẵng")
         cityList.add("Hồ Chí Minh")
@@ -102,7 +108,7 @@ class HomeFragment : Fragment() {
             override fun onComplete(task: Task<Location>) {
                 val location = task.result
                 if (location != null) {
-                    val geocoder: Geocoder = Geocoder(context, Locale.getDefault())
+                    val geocoder = Geocoder(context, Locale.getDefault())
                     address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
                     mylat = address[0].latitude
                     mylng = address[0].longitude
@@ -206,16 +212,45 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
         initDataView(view)
         initListener(view)
+        initDiscount(view)
         initExplore(view, HomeActivity.listPlace_HaNoi)
         return view
     }
 
+    private fun setDiscountData(view: View){
+        discountAdapter = DiscountAdapter(discountList)
+        view.recyclerView_discount.adapter = discountAdapter
+    }
+
+    private fun initDiscount(view: View) {
+        val reference : DatabaseReference = FirebaseDatabase.getInstance().getReference("Discount")
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (ds: DataSnapshot in snapshot.children) {
+                        //Log.d("Discount", "onDataChange: "+ds.key)
+                        val code = ds.child("code").value.toString()
+                        val percent = ds.child("percent").value.toString()
+                        val title = ds.child("title").value.toString()
+                        discountList.add(Discount(code, percent, title))
+                        setDiscountData(view)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
     private fun initExplore(view: View, list: ArrayList<PlaceExplore>) {
-        val exploreAdapter: ExploreAdapter = ExploreAdapter(list, requireContext())
+        val exploreAdapter = ExploreAdapter(list, requireContext())
         view.recyclerView_district.setHasFixedSize(true)
         view.recyclerView_district.adapter = exploreAdapter
         exploreAdapter.setExploreClickListener(object : ExploreAdapter.ExplorerListener {
@@ -394,7 +429,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun choosePicture() {
-        val intent: Intent = Intent()
+        val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, 1)

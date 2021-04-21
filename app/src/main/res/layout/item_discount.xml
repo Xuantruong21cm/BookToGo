@@ -4,41 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_discount_background"
     android:layout_width="340dp"
-    android:backgroundTint="#0CEBEB"
     android:layout_height="152dp"
+    android:backgroundTint="#00BCD4"
     android:layout_margin="16dp"
     android:background="@drawable/discount_background"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_discountName"
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/quicksand_regular"
+        android:maxEms="10"
         android:textColor="#2D3A4C"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_percentDiscount"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Exciting Couple Tour for the next vacation" />
 
     <TextView
+        app:layout_constraintTop_toBottomOf="@+id/tv_discountName"
         android:layout_marginBottom="8dp"
         android:id="@+id/tv_percentDiscount"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_regular"
         android:textColor="#2D3A4C"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="30% OFF" />
 
     <ImageView
-        android:id="@+id/img_book_discount"
+        android:id="@+id/img_pick_discount"
         android:layout_marginStart="8dp"
-        android:src="@drawable/book"
+        android:src="@drawable/pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/tv_percentDiscount"
