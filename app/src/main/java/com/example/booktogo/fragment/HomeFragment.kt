@@ -327,9 +327,9 @@ class HomeFragment : Fragment() {
             month = calendar[Calendar.MONTH]
             day = calendar[Calendar.DAY_OF_MONTH]
 
-            val datePickerDialog: DatePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                { view, year, month, dayOfMonth ->
                     requireView().tv_start_day.text =
                         "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
@@ -345,9 +345,9 @@ class HomeFragment : Fragment() {
             month = calendar[Calendar.MONTH]
             day = calendar[Calendar.DAY_OF_MONTH]
 
-            val datePickerDialog: DatePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                { view, year, month, dayOfMonth ->
                     requireView().tv_end_day.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
                 year!!,
@@ -445,7 +445,7 @@ class HomeFragment : Fragment() {
                     GlobalScope.launch(Dispatchers.IO) {
                         val bitmap: Bitmap =
                             MediaStore.Images.Media.getBitmap(context!!.contentResolver, uriImage)
-                        val outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
+                        val outputStream = ByteArrayOutputStream()
                         bitmap.compress(Bitmap.CompressFormat.PNG, 75, outputStream)
                         val byteArray = outputStream.toByteArray()
                         val encodedString: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
@@ -458,7 +458,7 @@ class HomeFragment : Fragment() {
                         val source =
                             ImageDecoder.createSource(context!!.contentResolver, uriImage!!)
                         val bitmap: Bitmap = ImageDecoder.decodeBitmap(source)
-                        val outputStream: ByteArrayOutputStream = ByteArrayOutputStream()
+                        val outputStream = ByteArrayOutputStream()
                         bitmap.compress(Bitmap.CompressFormat.PNG, 75, outputStream)
                         val byteArray = outputStream.toByteArray()
                         val encodedString: String = Base64.encodeToString(byteArray, Base64.DEFAULT)

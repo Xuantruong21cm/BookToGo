@@ -55,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_authentication_label"
             tools:ignore="TextViewEdits"
-            android:text="Enter the phone number \nfor OTP authentication" />
+            android:text="@string/enter_the_phone_number_nfor_otp_authentication" />
 
         <EditText
             android:maxLength="10"
@@ -72,7 +72,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="TextFields" />
 
         <ImageView
             android:id="@+id/img_continue_Phone"

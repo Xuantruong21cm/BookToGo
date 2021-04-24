@@ -33,4 +33,5 @@
     <string name="change_password_complete">Change password complete</string>
     <string name="booking_history">Booking History</string>
     <string name="double_click_back">Please click BACK again to exit</string>
+    <string name="enter_the_phone_number_nfor_otp_authentication">Enter the phone number \nfor OTP authentication</string>
 </resources>

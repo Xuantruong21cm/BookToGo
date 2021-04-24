@@ -1,7 +1,10 @@
 package com.example.booktogo.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +22,8 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_o_t_p.view.*
 import kotlinx.android.synthetic.main.fragment_phone_authen.view.*
@@ -27,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_phone_authen.view.img_authenticat
 import kotlinx.android.synthetic.main.fragment_phone_authen.view.textView
 import kotlinx.android.synthetic.main.fragment_register.view.img_markerLocation
 import kotlinx.android.synthetic.main.fragment_register.view.tv_cityNameRegister
+import java.io.ByteArrayOutputStream
 
 
 class OTPFragment : Fragment(), OnOtpCompletionListener {
@@ -80,23 +85,58 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
                     val age: Int = AccountHelper.instance.age!!
                     val gender: String = AccountHelper.instance.gender.toString()
                     val phone: String = AccountHelper.instance.phone.toString()
-                    val avatar : String = ""
-                    val user: User = User(
-                        email,
-                        userName,
-                        passWord,
-                        firstname,
-                        lastname,
-                        age,
-                        gender,
-                        phone,
-                        avatar
-                    )
-                    reference.child(AccountHelper.instance.phone!!).setValue(user)
-                    Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
-                    for (fragment in activity!!.supportFragmentManager.fragments) {
-                        activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
-                            .commit()
+                    var avatar: String = ""
+                    if (gender.equals("Male")) {
+                        val bm = BitmapFactory.decodeResource(context!!.resources, R.drawable.male)
+                        val byteArrayOutputStream = ByteArrayOutputStream()
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                        val byteArray = byteArrayOutputStream.toByteArray()
+                        avatar =Base64.encodeToString(byteArray,Base64.DEFAULT)
+
+                        val user: User = User(
+                            email,
+                            userName,
+                            passWord,
+                            firstname,
+                            lastname,
+                            age,
+                            gender,
+                            phone,
+                            avatar
+                        )
+
+                        reference.child(AccountHelper.instance.phone!!).setValue(user)
+                        Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                        for (fragment in activity!!.supportFragmentManager.fragments) {
+                            activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
+                                .commit()
+                        }
+
+                    }else{
+                        val bm = BitmapFactory.decodeResource(context!!.resources, R.drawable.female)
+                        val byteArrayOutputStream = ByteArrayOutputStream()
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+                        val byteArray = byteArrayOutputStream.toByteArray()
+                        avatar =Base64.encodeToString(byteArray,Base64.DEFAULT)
+
+                        val user: User = User(
+                            email,
+                            userName,
+                            passWord,
+                            firstname,
+                            lastname,
+                            age,
+                            gender,
+                            phone,
+                            avatar
+                        )
+
+                        reference.child(AccountHelper.instance.phone!!).setValue(user)
+                        Toast.makeText(context, "Sign Up Success", Toast.LENGTH_SHORT).show()
+                        for (fragment in activity!!.supportFragmentManager.fragments) {
+                            activity!!.supportFragmentManager.beginTransaction().remove(fragment!!)
+                                .commit()
+                        }
                     }
                 } else {
                     Toast.makeText(context, "OTP Is Not Correct", Toast.LENGTH_SHORT).show()
@@ -104,6 +144,13 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
             }
 
         })
+    }
+
+    fun decodedBitmap(source: String): Bitmap {
+        val decodedString = Base64.decode(source, Base64.DEFAULT)
+        val decodedByte: Bitmap =
+            BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        return decodedByte
     }
 
 

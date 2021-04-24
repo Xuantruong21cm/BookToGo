@@ -45,7 +45,7 @@ class PhoneAuthenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_phone_authen, container, false)
         initView(view)
         auth = Firebase.auth
@@ -62,10 +62,10 @@ class PhoneAuthenFragment : Fragment() {
 
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(p0, p1)
-                var manager: FragmentManager = activity!!.supportFragmentManager
-                var transition: FragmentTransaction = manager.beginTransaction()
+                val manager: FragmentManager = activity!!.supportFragmentManager
+                val transition: FragmentTransaction = manager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
-                var fragment : Fragment = OTPFragment()
+                val fragment : Fragment = OTPFragment()
                 AccountHelper.instance.codeOTP = p0
                 transition.replace(R.id.layout_info_user,fragment).commit()
                 transition.addToBackStack(fragment::class.java.simpleName)
@@ -79,7 +79,7 @@ class PhoneAuthenFragment : Fragment() {
                 reference.child("+84"+(view.otpPhone.text.substring(1)))
                 reference.addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.value == null){
+                        if (!snapshot.hasChild("+84"+(view.otpPhone.text.substring(1)))){
                             sendVerificationPhoneNumber("+84"+(view.otpPhone.text.substring(1)))
                         }else{
                             Toast.makeText(context,"Phone number already exists",Toast.LENGTH_SHORT).show()
@@ -101,7 +101,7 @@ class PhoneAuthenFragment : Fragment() {
         val options: PhoneAuthOptions = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phone)       // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-            .setActivity(activity)                 // Activity (for callback binding)
+            .setActivity(activity!!)                 // Activity (for callback binding)
             .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)

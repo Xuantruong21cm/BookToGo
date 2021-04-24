@@ -1,4 +1,4 @@
-package com.example.booktogo.fragment
+    package com.example.booktogo.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -41,7 +41,7 @@ class HistoryFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (ds: DataSnapshot in snapshot.children) {
-                       // Log.d("snapshot", "onDataChange: "+ds.key)
+                       Log.d("snapshot", "onDataChange: "+ds.key)
                         val name = ds.child("nameHotel").value.toString()
                         val address = ds.child("addressHotel").value.toString()
                         val date = ds.child("date_time").value.toString()

@@ -19,6 +19,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.R
+import com.example.booktogo.fragment.ForgotPasswordFragment
 import com.example.booktogo.fragment.RegisterFragment
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
@@ -152,6 +153,16 @@ class LoginActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+        }
+
+        img_forgot_password.setOnClickListener {
+            val manager = supportFragmentManager
+            val transition = manager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+            val fragment = ForgotPasswordFragment()
+            transition.add(R.id.layout_main, fragment).commit()
+            transition.addToBackStack(fragment::class.java.simpleName)
+
         }
 
     }

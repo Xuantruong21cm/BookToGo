@@ -1,6 +1,7 @@
 package com.example.booktogo.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -11,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
@@ -19,6 +22,7 @@ import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.model.Booking
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_detail_booking.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -81,6 +85,9 @@ class DetailBookingFragment : Fragment() {
                     .setValue(booking)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Booking Complete", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context,HomeActivity::class.java)
+                    startActivity(intent)
+                    activity!!.finish()
                 }
             }
 
