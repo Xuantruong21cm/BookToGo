@@ -5,46 +5,77 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.Helper.HotelHelper
 import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.model.Booking
+import com.example.booktogo.model.Discount
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_detail_booking.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
-import java.util.concurrent.ThreadLocalRandom
+import java.util.concurrent.*
 
 
 class DetailBookingFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
+    private var delay: Long = 1000
+    private var last_text_edit: Long = 0
+    private var handler = Handler(Looper.getMainLooper())
+    private lateinit var input_finish_checker : Runnable
+    private lateinit var clear_code : Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_detail_booking, container, false)
+
         initView(view)
         initListener(view)
+        callbackDiscount(view)
 
         return view
+    }
+
+    private fun callbackDiscount(view: View) {
+        input_finish_checker = Runnable {
+            run {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+                    for(discount : Discount in HomeFragment.discountList ){
+                        if (discount.code.equals(view.edt_promotion.text.toString().trim())){
+                            Toast.makeText(context,discount.code + " | "+discount.title,Toast.LENGTH_SHORT).show()
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
+        clear_code = Runnable {
+            run {
+                if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
+                    Toast.makeText(context,"Clear Code",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun initListener(view: View) {
@@ -55,7 +86,8 @@ class DetailBookingFragment : Fragment() {
         view.btn_booking_this_room.setOnClickListener {
             val idBooking = ThreadLocalRandom.current().nextInt(100000, 999999)
             val idHotel = HotelHelper.instance.idHotel
-            val date_time = view.tv_startDay_detailBooking.text.toString() + " - " + view.tv_endDay_detailBooking.text.toString()
+            val date_time =
+                view.tv_startDay_detailBooking.text.toString() + " - " + view.tv_endDay_detailBooking.text.toString()
             val days = TripHelper.instance.days
             val nameHotel = HotelHelper.instance.nameHotel
             val addressHotel = HotelHelper.instance.addressHotel
@@ -85,13 +117,32 @@ class DetailBookingFragment : Fragment() {
                     .setValue(booking)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Booking Complete", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context,HomeActivity::class.java)
+                    val intent = Intent(context, HomeActivity::class.java)
                     startActivity(intent)
                     activity!!.finish()
                 }
             }
-
         }
+
+        view.edt_promotion.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                handler.removeCallbacks(input_finish_checker)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.length > 0) {
+                    last_text_edit = System.currentTimeMillis()
+                    handler.postDelayed(input_finish_checker,delay)
+                }else if (s.length <= 0){
+                    last_text_edit = System.currentTimeMillis()
+                    handler.postDelayed(clear_code,delay)
+                }
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")

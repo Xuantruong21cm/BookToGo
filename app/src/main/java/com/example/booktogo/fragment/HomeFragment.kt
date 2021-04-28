@@ -15,11 +15,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -42,6 +38,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.jaredrummler.materialspinner.MaterialSpinner
+import com.thecode.aestheticdialogs.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -55,7 +52,6 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class HomeFragment : Fragment() {
     var uriImage: Uri? = null
@@ -81,7 +77,9 @@ class HomeFragment : Fragment() {
     var day: Int? = null
     lateinit var calendar: Calendar
     lateinit var discountAdapter: DiscountAdapter
-    lateinit var discountList : ArrayList<Discount>
+    companion object{
+        lateinit var discountList : ArrayList<Discount>
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +117,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun district_HaNoi() {
+    private fun district_HaNoi() {
         districtList_HaNoi = ArrayList()
         districtList_HaNoi.add("Hoàn Kiếm")
         districtList_HaNoi.add("Đống Đa")
@@ -158,7 +156,7 @@ class HomeFragment : Fragment() {
         )
     }
 
-    fun district_HCM() {
+   private fun district_HCM() {
         districtList_HCM = ArrayList()
         districtList_HCM.add("Quận 1")
         districtList_HCM.add("Quận 2")
@@ -191,7 +189,7 @@ class HomeFragment : Fragment() {
         )
     }
 
-    fun district_DN() {
+    private fun district_DN() {
         districtList_DN = ArrayList()
         districtList_DN.add("Quận Hải Châu")
         districtList_DN.add("Quận Cẩm Lệ")
@@ -224,6 +222,23 @@ class HomeFragment : Fragment() {
     private fun setDiscountData(view: View){
         discountAdapter = DiscountAdapter(discountList)
         view.recyclerView_discount.adapter = discountAdapter
+
+        discountAdapter.setDiscountListener(object : DiscountAdapter.getCode{
+            override fun onClick(discount: Discount) {
+                AestheticDialog.Builder(activity!!,DialogStyle.FLAT,DialogType.SUCCESS)
+                    .setTitle("Code")
+                    .setMessage(discount.code)
+                    .setCancelable(false)
+                    .setDarkMode(false)
+                    .setGravity(Gravity.CENTER)
+                    .setAnimation(DialogAnimation.SHRINK)
+                    .setOnClickListener(object : OnDialogClickListener{
+                        override fun onClick(dialog: AestheticDialog.Builder) {
+                         dialog.dismiss()
+                        }
+                    }).show()
+            }
+        })
     }
 
     private fun initDiscount(view: View) {
@@ -274,8 +289,7 @@ class HomeFragment : Fragment() {
         val dateformater: DateTimeFormatter = DateTimeFormatter.ofPattern("d/M/u")
         val startDateValue = LocalDate.parse(startDay, dateformater)
         val endDateValue = LocalDate.parse(endDay, dateformater)
-        val days: Long = ChronoUnit.DAYS.between(startDateValue, endDateValue)
-        return days
+        return ChronoUnit.DAYS.between(startDateValue, endDateValue)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -329,7 +343,7 @@ class HomeFragment : Fragment() {
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                { view, year, month, dayOfMonth ->
+                { _, year, month, dayOfMonth ->
                     requireView().tv_start_day.text =
                         "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
@@ -347,7 +361,7 @@ class HomeFragment : Fragment() {
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                { view, year, month, dayOfMonth ->
+                { _, year, month, dayOfMonth ->
                     requireView().tv_end_day.text = "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
                 year!!,
@@ -385,35 +399,27 @@ class HomeFragment : Fragment() {
 
         view.spinner_city.setAdapter(cityAdapter)
         view.spinner_district.setAdapter(haNoiCityAdapter)
-        view.spinner_city.setOnItemSelectedListener(object :
-            MaterialSpinner.OnItemSelectedListener<String> {
-            override fun onItemSelected(
-                view: MaterialSpinner?,
-                position: Int,
-                id: Long,
-                item: String?
-            ) {
-                if (item.equals("Hà Nội")) {
-                    requireView().spinner_district.setAdapter(haNoiCityAdapter)
-                    district = districtList_HaNoi[0]
-                    exploreCity = "HotelHaNoi"
-                    cityName = item.toString()
-                    initExplore(requireView(), HomeActivity.listPlace_HaNoi)
-                } else if (item.equals("Đà Nẵng")) {
-                    requireView().spinner_district.setAdapter(DNCityAdapter)
-                    district = districtList_DN[0]
-                    exploreCity = "HotelDaNang"
-                    cityName = item.toString()
-                    initExplore(requireView(), HomeActivity.listPlace_DN)
-                } else if (item.equals("Hồ Chí Minh")) {
-                    requireView().spinner_district.setAdapter(HCMCityAdapter)
-                    district = districtList_HCM[0]
-                    exploreCity = "HotelHCM"
-                    cityName = item.toString()
-                    initExplore(requireView(), HomeActivity.listPlace_HCM)
-                }
+        view.spinner_city.setOnItemSelectedListener { _, position, id, item ->
+            if (item.equals("Hà Nội")) {
+                requireView().spinner_district.setAdapter(haNoiCityAdapter)
+                district = districtList_HaNoi[0]
+                exploreCity = "HotelHaNoi"
+                cityName = item.toString()
+                initExplore(requireView(), HomeActivity.listPlace_HaNoi)
+            } else if (item.equals("Đà Nẵng")) {
+                requireView().spinner_district.setAdapter(DNCityAdapter)
+                district = districtList_DN[0]
+                exploreCity = "HotelDaNang"
+                cityName = item.toString()
+                initExplore(requireView(), HomeActivity.listPlace_DN)
+            } else if (item.equals("Hồ Chí Minh")) {
+                requireView().spinner_district.setAdapter(HCMCityAdapter)
+                district = districtList_HCM[0]
+                exploreCity = "HotelHCM"
+                cityName = item.toString()
+                initExplore(requireView(), HomeActivity.listPlace_HCM)
             }
-        })
+        }
 
         view.spinner_district.setOnItemSelectedListener(object :
             MaterialSpinner.OnItemSelectedListener<String> {

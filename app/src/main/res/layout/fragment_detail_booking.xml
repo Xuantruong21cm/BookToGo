@@ -254,6 +254,7 @@
                 android:text="@string/full_name"/>
 
             <EditText
+                android:fontFamily="@font/quicksand_regular"
                 tools:text="Xuân Trường DeepTry"
                 android:textColor="#2D3A4C"
                 android:textSize="16sp"
@@ -283,6 +284,7 @@
                 android:text="@string/email"/>
 
             <EditText
+                android:fontFamily="@font/quicksand_regular"
                 tools:text="Xuân Trường DeepTry"
                 android:textColor="#2D3A4C"
                 android:textSize="16sp"
@@ -312,6 +314,7 @@
                 android:text="@string/phone"/>
 
             <EditText
+                android:fontFamily="@font/quicksand_regular"
                 tools:text="Xuân Trường DeepTry"
                 android:textColor="#2D3A4C"
                 android:textSize="16sp"
@@ -325,6 +328,38 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_phone_label" />
+
+            <TextView
+                android:textColor="#2D3A4C"
+                android:fontFamily="@font/quicksand_regular"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/edt_phone"
+                android:id="@+id/tv_promotion_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/promotion_code"/>
+
+            <EditText
+                android:hint="@string/if_you_have_a_code"
+                android:id="@+id/edt_promotion"
+                android:textColor="#2D3A4C"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_promotion_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_promotion_label"
+                app:layout_constraintTop_toTopOf="@+id/tv_promotion_label" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

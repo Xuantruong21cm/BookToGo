@@ -12,8 +12,8 @@ import com.example.booktogo.model.Discount
 import kotlinx.android.synthetic.main.item_discount.view.*
 
 class DiscountAdapter(var list : ArrayList<Discount>) : RecyclerView.Adapter<DiscountAdapter.ViewHolder>() {
-
-    inner class ViewHolder : RecyclerView.ViewHolder{
+    lateinit var listener : getCode
+    inner class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener{
         var tv_discountName : TextView
         var tv_percentDiscount : TextView
         var img_pick_discount : ImageView
@@ -22,6 +22,11 @@ class DiscountAdapter(var list : ArrayList<Discount>) : RecyclerView.Adapter<Dis
             tv_discountName = itemView.tv_discountName
             tv_percentDiscount = itemView.tv_percentDiscount
             img_pick_discount = itemView.img_pick_discount
+            img_pick_discount.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            listener.onClick(list[bindingAdapterPosition])
         }
     }
 
@@ -38,5 +43,13 @@ class DiscountAdapter(var list : ArrayList<Discount>) : RecyclerView.Adapter<Dis
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun setDiscountListener(listener : getCode){
+        this.listener = listener
+    }
+
+    interface getCode{
+        fun onClick(discount: Discount)
     }
 }

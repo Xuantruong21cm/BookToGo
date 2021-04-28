@@ -80,7 +80,7 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_hotel_details, container, false)
         inintValue()
         initView(view)
@@ -89,6 +89,9 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initListener(view: View) {
+        view.img_back.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+        }
 
         view.img_favourite_hotel.setOnClickListener {
             val hotel: Hotel = Hotel(
@@ -128,7 +131,6 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
             if (check == null){
                 val result = db!!.hotelDAO().insertAll(hotel)
                 if (result != null){
-
                     Toast.makeText(requireContext(),"Added to favorites list",Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(requireContext(),"Add failure",Toast.LENGTH_SHORT).show()
@@ -235,7 +237,7 @@ class HotelDetailsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap?) {
         map = p0!!
-        val latLng: LatLng = LatLng(lat!!, lng!!)
+        val latLng = LatLng(lat!!, lng!!)
         map.addMarker(MarkerOptions().position(latLng))
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))

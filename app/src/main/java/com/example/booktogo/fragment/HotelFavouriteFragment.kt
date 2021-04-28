@@ -14,10 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.booktogo.Helper.HotelHelper
-import com.example.booktogo.Helper.TripHelper
 import com.example.booktogo.R
 import com.example.booktogo.activity.HomeActivity
 import com.example.booktogo.adapter.NearbyAdapter
@@ -27,7 +24,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_hotel_favourite.*
 import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.*
 import kotlinx.android.synthetic.main.fragment_hotel_favourite.view.img_details_1
@@ -62,51 +58,51 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
-    lateinit var map: GoogleMap
-    var addressHotel: String? = null
-    var idHotel: String? = null
-    var lat: Double? = null
-    var lng: Double? = null
-    var levelHotel: String? = null
-    var nameHotel: String? = null
-    var priceRange: String? = null
-    var details1: String? = null
-    var details2: String? = null
-    var details3: String? = null
-    var details4: String? = null
-    var details5: String? = null
-    var details6: String? = null
-    var details7: String? = null
-    var details8: String? = null
-    var details9: String? = null
-    var nearby1: String? = null
-    var nearby2: String? = null
-    var nearby3: String? = null
-    var nearby4: String? = null
-    var nearby5: String? = null
+    private lateinit var map: GoogleMap
+    private var addressHotel: String? = null
+    private var idHotel: String? = null
+    private var lat: Double? = null
+    private var lng: Double? = null
+    private var levelHotel: String? = null
+    private  var nameHotel: String? = null
+    private  var priceRange: String? = null
+    private var details1: String? = null
+    private var details2: String? = null
+    private var details3: String? = null
+    private var details4: String? = null
+    private var details5: String? = null
+    private var details6: String? = null
+    private  var details7: String? = null
+    private var details8: String? = null
+    private var details9: String? = null
+    private var nearby1: String? = null
+    private var nearby2: String? = null
+    private  var nearby3: String? = null
+    private var nearby4: String? = null
+    private var nearby5: String? = null
 
-    var clean_room: String? = null
-    var elevator: String? = null
-    var family: String? = null
-    var free_wifi: String? = null
-    var hot_tub: String? = null
-    var laundry: String? = null
-    var reception: String? = null
-    var security_camera: String? = null
-    var smoke: String? = null
+    private var clean_room: String? = null
+    private var elevator: String? = null
+    private var family: String? = null
+    private var free_wifi: String? = null
+    private var hot_tub: String? = null
+    private var laundry: String? = null
+    private var reception: String? = null
+    private var security_camera: String? = null
+    private var smoke: String? = null
     lateinit var nearbyList: ArrayList<String>
     lateinit var adapter: NearbyAdapter
 
-    var year: Int? = null
-    var month: Int? = null
-    var day: Int? = null
-    lateinit var calendar: Calendar
+    private var year: Int? = null
+    private var month: Int? = null
+    private var day: Int? = null
+    private lateinit var calendar: Calendar
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view : View = inflater.inflate(R.layout.fragment_hotel_favourite, container, false)
         initValue()
         initView(view)
@@ -187,9 +183,9 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
             month = calendar[Calendar.MONTH]
             day = calendar[Calendar.DAY_OF_MONTH]
 
-            val datePickerDialog: DatePickerDialog = DatePickerDialog(
+            val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                { view, year, month, dayOfMonth ->
                     requireView().tv_start_day.text =
                         "" + dayOfMonth + "/" + (month + 1) + "/" + year
                 },
@@ -250,6 +246,10 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
             transition.add(R.id.layout_favoutite, fragment).commit()
             transition.addToBackStack(fragment::class.java.simpleName)
         }
+
+        view.img_back.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+        }
     }
 
     private fun initValue() {
@@ -293,7 +293,7 @@ class HotelFavouriteFragment : Fragment(),OnMapReadyCallback {
     }
     override fun onMapReady(p0: GoogleMap?) {
         map = p0!!
-        val latLng: LatLng = LatLng(lat!!, lng!!)
+        val latLng = LatLng(lat!!, lng!!)
         map.addMarker(MarkerOptions().position(latLng))
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))

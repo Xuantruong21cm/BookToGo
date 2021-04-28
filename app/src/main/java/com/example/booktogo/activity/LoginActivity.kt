@@ -239,9 +239,6 @@ class LoginActivity : AppCompatActivity() {
         img_let_explore.animation = topAnim
         edt_password.animation = leftAnim
         edt_username.animation = leftAnim
-        img_login_with.animation = rightAnim
-        img_facebook.animation = rightAnim
-        img_google.animation = rightAnim
         img_signIn.animation = bottomAnim
         img_register.animation = bottomAnim
         checkbox_rememberPass.animation = leftAnim
