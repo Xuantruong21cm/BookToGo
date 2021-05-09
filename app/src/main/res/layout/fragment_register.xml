@@ -17,36 +17,25 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/img_markerLocation"
+            android:id="@+id/img_backRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/marker"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/back_explore"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_cityNameRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="Ha Noi, Viet Nam"
-            android:textColor="#171717"
-            app:layout_constraintBottom_toBottomOf="@+id/img_markerLocation"
-            app:layout_constraintStart_toEndOf="@+id/img_markerLocation"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/img_getStarted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
             android:src="@drawable/getting_started"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_cityNameRegister" />
+            app:layout_constraintTop_toBottomOf="@+id/img_backRegister" />
 
         <ImageView
             android:id="@+id/img_email_label"

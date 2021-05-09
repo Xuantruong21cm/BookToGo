@@ -25,7 +25,7 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
         initView(view)
         view.img_sing_up.setOnClickListener {
@@ -42,9 +42,9 @@ class RegisterFragment : Fragment() {
                 AccountHelper.instance.userName = view.edt_newUsername.text.toString()
                 AccountHelper.instance.passWord = view.edt_newPassword.text.toString()
                 val manager: FragmentManager = activity!!.supportFragmentManager
-                var transition: FragmentTransaction = manager.beginTransaction()
+                val transition: FragmentTransaction = manager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
-                var fragment: Fragment = InfoUserFragment()
+                val fragment: Fragment = InfoUserFragment()
                 transition.replace(R.id.layout_regiter, fragment).commit()
                 transition.addToBackStack(fragment::class.java.simpleName)
             }
@@ -57,6 +57,11 @@ class RegisterFragment : Fragment() {
             }
         }
 
+        view.img_backRegister.setOnClickListener { 
+            activity!!.supportFragmentManager.popBackStack()
+
+        }
+
         return view
     }
 
@@ -67,8 +72,7 @@ class RegisterFragment : Fragment() {
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)
         rightAnim = AnimationUtils.loadAnimation(context, R.anim.right_animation)
 
-        view.img_markerLocation.animation = topAnim
-        view.tv_cityNameRegister.animation = topAnim
+        view.img_backRegister.animation = topAnim
         view.img_getStarted.animation = topAnim
         view.img_email_label.animation = leftAnim
         view.edt_newEmail.animation = leftAnim
