@@ -1,5 +1,7 @@
 package com.example.booktogo.activity
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -10,7 +12,9 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -38,7 +42,10 @@ class LoginActivity : AppCompatActivity() {
     lateinit var userName: String
     lateinit var passWord: String
     private var doubleBackToExitPressedOnce : Boolean = false
+    private lateinit var progressLogin : AlertDialog.Builder
+    private lateinit var dialogLogin : AlertDialog
 
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -68,6 +75,15 @@ class LoginActivity : AppCompatActivity() {
         img_signIn.setOnClickListener {
             userName = edt_username.text.toString().trim()
             passWord = edt_password.text.toString().trim()
+
+
+
+            progressLogin = AlertDialog.Builder(this@LoginActivity,R.style.CustomDialogLogin)
+            val inflater = layoutInflater
+            progressLogin.setView(inflater.inflate(R.layout.progress_login,null))
+            progressLogin.setCancelable(false)
+            dialogLogin = progressLogin.create()
+            dialogLogin.show()
 
             val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
             val checkUser: Query =
@@ -129,6 +145,7 @@ class LoginActivity : AppCompatActivity() {
                                     dataStoreCheck.edit { it.clear() }
                                     withContext(Dispatchers.Main) {
                                         startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                                        dialogLogin.dismiss()
                                         finish()
                                     }
                                 }
@@ -144,6 +161,7 @@ class LoginActivity : AppCompatActivity() {
                                         "Wrong Account",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    dialogLogin.dismiss()
                                 }
                             }
                         }

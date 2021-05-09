@@ -22,12 +22,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_info_user.view.*
-import kotlinx.android.synthetic.main.fragment_info_user.view.img_firstname_label
 import kotlinx.android.synthetic.main.fragment_phone_authen.view.*
-import kotlinx.android.synthetic.main.fragment_register.view.*
-import kotlinx.android.synthetic.main.fragment_register.view.img_markerLocation
-import kotlinx.android.synthetic.main.fragment_register.view.tv_cityNameRegister
 import java.util.concurrent.TimeUnit
 
 
@@ -94,6 +89,10 @@ class PhoneAuthenFragment : Fragment() {
                 Log.d("phone", "+84"+(view.otpPhone.text.substring(1)))
             }
         }
+
+        view.img_backPhone.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+        }
         return view
     }
 
@@ -115,8 +114,7 @@ class PhoneAuthenFragment : Fragment() {
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)
         rightAnim = AnimationUtils.loadAnimation(context, R.anim.right_animation)
 
-        view.img_markerLocation.animation = topAnim
-        view.tv_cityNameRegister.animation = topAnim
+        view.img_backPhone.animation = topAnim
         view.img_authentication_label.animation = leftAnim
         view.textView.animation = leftAnim
         view.otpPhone.animation = rightAnim

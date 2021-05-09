@@ -1,9 +1,11 @@
 package com.example.booktogo.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +14,7 @@ import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -24,6 +27,7 @@ import com.example.booktogo.model.Booking
 import com.example.booktogo.model.Discount
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.thecode.aestheticdialogs.*
 import kotlinx.android.synthetic.main.fragment_detail_booking.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,8 +43,10 @@ class DetailBookingFragment : Fragment() {
     private var delay: Long = 1000
     private var last_text_edit: Long = 0
     private var handler = Handler(Looper.getMainLooper())
-    private lateinit var input_finish_checker : Runnable
-    private lateinit var clear_code : Runnable
+    private lateinit var input_finish_checker: Runnable
+    private lateinit var clear_code: Runnable
+    private var defaultPrice: Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,15 +61,61 @@ class DetailBookingFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("SetTextI18n")
     private fun callbackDiscount(view: View) {
         input_finish_checker = Runnable {
             run {
+                val decimalFormat = DecimalFormat("###,###,###")
+                var notFound : Int = 0
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    for(discount : Discount in HomeFragment.discountList ){
-                        if (discount.code.equals(view.edt_promotion.text.toString().trim())){
-                            Toast.makeText(context,discount.code + " | "+discount.title,Toast.LENGTH_SHORT).show()
+                    for (discount: Discount in HomeFragment.discountList) {
+                        if (discount.code.equals(view.edt_promotion.text.toString().trim())) {
+                            notFound = 1
+                            defaultPrice =
+                                HotelHelper.instance.priceRange!!.toInt() - (HotelHelper.instance.priceRange!!.toInt() / 100 * discount.percent.toInt())
+                            AestheticDialog.Builder(
+                                activity!!,
+                                DialogStyle.FLAT,
+                                DialogType.SUCCESS
+                            )
+                                .setTitle("Discounted")
+                                .setMessage(decimalFormat.format((HotelHelper.instance.priceRange!!.toInt() / 100 * discount.percent.toInt())).toString())
+                                .setCancelable(false)
+                                .setDarkMode(false)
+                                .setGravity(Gravity.CENTER)
+                                .setAnimation(DialogAnimation.SHRINK)
+                                .setOnClickListener(object : OnDialogClickListener {
+                                    override fun onClick(dialog: AestheticDialog.Builder) {
+                                        view.tv_price_detailBooking.text =
+                                            decimalFormat.format(defaultPrice) + " đ"
+                                        closeKeyboard()
+                                        dialog.dismiss()
+                                    }
+                                }).show()
                             break
                         }
+                    }
+                    if (notFound == 0 ){
+                        AestheticDialog.Builder(
+                            activity!!,
+                            DialogStyle.FLAT,
+                            DialogType.ERROR
+                        )
+                            .setTitle("ERRO")
+                            .setMessage(getString(R.string.this_code_not_found))
+                            .setCancelable(false)
+                            .setDarkMode(false)
+                            .setGravity(Gravity.CENTER)
+                            .setAnimation(DialogAnimation.SHRINK)
+                            .setOnClickListener(object : OnDialogClickListener {
+                                override fun onClick(dialog: AestheticDialog.Builder) {
+                                    view.edt_promotion.setTextColor(Color.parseColor("#F44336"))
+                                    view.tv_price_detailBooking.text =
+                                        decimalFormat.format(HotelHelper.instance.priceRange!!.toInt()) + " đ"
+                                    closeKeyboard()
+                                    dialog.dismiss()
+                                }
+                            }).show()
                     }
                 }
             }
@@ -72,7 +124,10 @@ class DetailBookingFragment : Fragment() {
         clear_code = Runnable {
             run {
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
-                    Toast.makeText(context,"Clear Code",Toast.LENGTH_SHORT).show()
+                    val decimalFormat = DecimalFormat("###,###,###")
+                    view.tv_price_detailBooking.text =
+                        decimalFormat.format(HotelHelper.instance.priceRange!!.toInt()) + " đ"
+                    closeKeyboard()
                 }
             }
         }
@@ -96,7 +151,7 @@ class DetailBookingFragment : Fragment() {
             val fullname = AccountHelper.instance.firstname + " " + AccountHelper.instance.lastname
             val email = AccountHelper.instance.email
             val phone = AccountHelper.instance.phone
-            val price = HotelHelper.instance.priceRange
+            val price = defaultPrice.toString()
             val detail = HotelHelper.instance.details1
             val booking = Booking(
                 idHotel,
@@ -131,24 +186,34 @@ class DetailBookingFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 handler.removeCallbacks(input_finish_checker)
+                view.edt_promotion.setTextColor(Color.parseColor("#2D3A4C"))
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s!!.length > 0) {
                     last_text_edit = System.currentTimeMillis()
-                    handler.postDelayed(input_finish_checker,delay)
-                }else if (s.length <= 0){
+                    handler.postDelayed(input_finish_checker, delay)
+                } else if (s.length <= 0) {
                     last_text_edit = System.currentTimeMillis()
-                    handler.postDelayed(clear_code,delay)
+                    handler.postDelayed(clear_code, delay)
                 }
             }
         })
+    }
+
+    private fun closeKeyboard(){
+        val view = activity!!.currentFocus
+        if (view != null){
+            val imm : InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken,0)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
         HomeActivity.chip_navigationView.visibility = View.GONE
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        defaultPrice = HotelHelper.instance.priceRange!!.toInt()
         view.edt_fullname.setText(AccountHelper.instance.firstname + " " + AccountHelper.instance.lastname)
         view.edt_email.setText(AccountHelper.instance.email)
         view.edt_phone.setText(AccountHelper.instance.phone)
@@ -162,7 +227,7 @@ class DetailBookingFragment : Fragment() {
         view.img_avatar_detailBooking.setImageBitmap(decodedBitmap(HotelHelper.instance.details1!!))
         val decimalFormat = DecimalFormat("###,###,###")
         view.tv_price_detailBooking.text =
-            decimalFormat.format(HotelHelper.instance.priceRange!!.toInt()) + " đ"
+            decimalFormat.format(defaultPrice) + " đ"
 
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Booking")

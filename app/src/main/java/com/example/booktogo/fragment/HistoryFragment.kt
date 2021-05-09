@@ -26,7 +26,14 @@ class HistoryFragment : Fragment() {
     ): View {
         val view : View = inflater.inflate(R.layout.fragment_history, container, false)
         initView(view)
+        initListener(view)
         return view
+    }
+
+    private fun initListener(view: View) {
+        view.img_back_history.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+        }
     }
 
     private fun initView(view: View) {

@@ -191,14 +191,14 @@ class HomeFragment : Fragment() {
 
     private fun district_DN() {
         districtList_DN = ArrayList()
-        districtList_DN.add("Quận Hải Châu")
-        districtList_DN.add("Quận Cẩm Lệ")
-        districtList_DN.add("Quận Thanh Khê")
-        districtList_DN.add("Quận Liên Chiểu")
-        districtList_DN.add("Quận Ngũ Hành Sơn")
-        districtList_DN.add("Quận Sơn Trà")
-        districtList_DN.add("Huyện Hòa Vang")
-        districtList_DN.add("uyện Hoàng Sa")
+        districtList_DN.add("Hải Châu")
+        districtList_DN.add("Cẩm Lệ")
+        districtList_DN.add("Thanh Khê")
+        districtList_DN.add("Liên Chiểu")
+        districtList_DN.add("Ngũ Hành Sơn")
+        districtList_DN.add("Sơn Trà")
+        districtList_DN.add("Hòa Vang")
+        districtList_DN.add("Hoàng Sa")
         DNCityAdapter = ArrayAdapter(
             context!!,
             android.R.layout.simple_spinner_item,

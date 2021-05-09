@@ -26,11 +26,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.fragment_o_t_p.view.*
-import kotlinx.android.synthetic.main.fragment_phone_authen.view.*
-import kotlinx.android.synthetic.main.fragment_phone_authen.view.img_authentication_label
-import kotlinx.android.synthetic.main.fragment_phone_authen.view.textView
-import kotlinx.android.synthetic.main.fragment_register.view.img_markerLocation
-import kotlinx.android.synthetic.main.fragment_register.view.tv_cityNameRegister
 import java.io.ByteArrayOutputStream
 
 
@@ -68,6 +63,11 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
             }
         }
         view.otpView.setOtpCompletionListener(this)
+
+        view.img_backOtp_fragment.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+
+        }
 
         return view
     }
@@ -161,8 +161,7 @@ class OTPFragment : Fragment(), OnOtpCompletionListener {
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)
         rightAnim = AnimationUtils.loadAnimation(context, R.anim.right_animation)
 
-        view.img_markerLocation.animation = topAnim
-        view.tv_cityNameRegister.animation = topAnim
+        view.img_backOtp_fragment.animation = topAnim
         view.img_authentication_label.animation = leftAnim
         view.textView.animation = leftAnim
         view.otpView.animation = rightAnim

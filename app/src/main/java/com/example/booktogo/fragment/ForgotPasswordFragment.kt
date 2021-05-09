@@ -21,12 +21,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.img_authentication_label
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.img_continue_Phone
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.img_markerLocation
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.otpPhone
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.textView
-import kotlinx.android.synthetic.main.fragment_forgot_password.view.tv_cityNameRegister
+import kotlinx.android.synthetic.main.fragment_forgot_password.view.*
 import java.util.concurrent.TimeUnit
 
 class ForgotPasswordFragment : Fragment() {
@@ -99,6 +94,11 @@ class ForgotPasswordFragment : Fragment() {
 
         }
 
+        view.img_backForgot.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+
+        }
+
     }
     private fun sendVerificationPhoneNumber(phone : String){
         val options : PhoneAuthOptions = PhoneAuthOptions.newBuilder(auth)
@@ -117,8 +117,7 @@ class ForgotPasswordFragment : Fragment() {
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)
         rightAnim = AnimationUtils.loadAnimation(context, R.anim.right_animation)
 
-        view.img_markerLocation.animation = topAnim
-        view.tv_cityNameRegister.animation = topAnim
+        view.img_backForgot.animation = topAnim
         view.img_authentication_label.animation = leftAnim
         view.textView.animation = leftAnim
         view.otpPhone.animation = rightAnim

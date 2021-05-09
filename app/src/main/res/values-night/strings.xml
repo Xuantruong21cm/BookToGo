@@ -36,4 +36,7 @@
     <string name="enter_the_phone_number_nfor_otp_authentication">Enter the phone number \nfor OTP authentication</string>
     <string name="promotion_code">Promotion Code</string>
     <string name="if_you_have_a_code">If you have a code</string>
+    <string name="this_code_not_found">This Code Not Found</string>
+    <string name="login">Login.....</string>
+    <string name="log_out_message">Do you want to log out of your account ?</string>
 </resources>

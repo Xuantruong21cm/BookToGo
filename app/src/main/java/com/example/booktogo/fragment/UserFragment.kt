@@ -53,6 +53,8 @@ class UserFragment : Fragment() {
         view.btn_logOut.setOnClickListener {
             val alertDialog = AlertDialog.Builder(activity!!)
             alertDialog.setCancelable(false)
+            alertDialog.setTitle(getString(R.string.log_out))
+            alertDialog.setMessage(getString(R.string.log_out_message))
             alertDialog.setPositiveButton("Log Out",object : DialogInterface.OnClickListener{
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     val intent = Intent(activity,LoginActivity::class.java)

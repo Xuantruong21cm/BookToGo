@@ -22,12 +22,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.mukesh.OnOtpCompletionListener
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.img_authentication_label
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.img_continue_OTP
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.img_markerLocation
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.otpView
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.textView
-import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.tv_cityNameRegister
+import kotlinx.android.synthetic.main.fragment_o_t_p_forgot_pass.view.*
 
 class OTPForgotPassFragment : Fragment(), OnOtpCompletionListener {
     lateinit var topAnim: Animation
@@ -70,6 +65,10 @@ class OTPForgotPassFragment : Fragment(), OnOtpCompletionListener {
             }
         }
         view.otpView.setOtpCompletionListener(this)
+
+        view.img_backOtp.setOnClickListener {
+            activity!!.supportFragmentManager.popBackStack()
+        }
     }
 
     private fun showPass(credential: PhoneAuthCredential) {
@@ -113,8 +112,7 @@ class OTPForgotPassFragment : Fragment(), OnOtpCompletionListener {
         leftAnim = AnimationUtils.loadAnimation(context, R.anim.left_animation)
         rightAnim = AnimationUtils.loadAnimation(context, R.anim.right_animation)
 
-        view.img_markerLocation.animation = topAnim
-        view.tv_cityNameRegister.animation = topAnim
+        view.img_backOtp.animation = topAnim
         view.img_authentication_label.animation = leftAnim
         view.textView.animation = leftAnim
         view.otpView.animation = rightAnim
