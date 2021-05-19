@@ -27,11 +27,10 @@ class FavouriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view : View = inflater.inflate(R.layout.fragment_favourite, container, false)
         initData()
         initView(view)
-
 
         return view
     }
@@ -102,8 +101,15 @@ class FavouriteFragment : Fragment() {
             override fun DeleteFavourite(hotel: Hotel,position : Int) {
                 db.hotelDAO().delete(hotel)
                 list.removeAt(position)
-                adapter.notifyItemRemoved(position)
-                adapter.notifyDataSetChanged()
+                if (list.size>0){
+                    adapter.notifyItemRemoved(position)
+                    adapter.notifyDataSetChanged()
+                    view.img_hotel_favourite_empty.visibility = View.GONE
+                }else{
+                    adapter.notifyItemRemoved(position)
+                    adapter.notifyDataSetChanged()
+                    view.img_hotel_favourite_empty.visibility = View.VISIBLE
+                }
             }
         })
     }

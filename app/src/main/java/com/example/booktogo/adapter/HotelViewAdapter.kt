@@ -23,17 +23,17 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context) :
+class HotelViewAdapter(var list: ArrayList<HotelExplore>, var context: Context) :
     RecyclerView.Adapter<HotelViewAdapter.ViewHolder>() {
     lateinit var listener: HotelViewListener
 
-    inner class ViewHolder : RecyclerView.ViewHolder,View.OnClickListener{
-        var img_thumnail_explore : ImageView
-        var tv_hotelName_explore : TextView
-        var tv_level_hotel_explore : TextView
-        var tv_price_explore : TextView
+    inner class ViewHolder : RecyclerView.ViewHolder, View.OnClickListener {
+        var img_thumnail_explore: ImageView
+        var tv_hotelName_explore: TextView
+        var tv_level_hotel_explore: TextView
+        var tv_price_explore: TextView
 
-        constructor(itemView: View) : super(itemView){
+        constructor(itemView: View) : super(itemView) {
             img_thumnail_explore = itemView.img_thumnail_explore
             tv_hotelName_explore = itemView.tv_hotelName_explore
             tv_level_hotel_explore = itemView.tv_level_hotel_explore
@@ -47,19 +47,22 @@ class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_hotel_explore,parent,false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_hotel_explore, parent, false)
         return ViewHolder(view)
     }
 
 
     override fun getItemCount(): Int {
-        return  list.size
+        return list.size
     }
-    fun decodedBitmap(source : String, holder : ViewHolder){
-        GlobalScope.launch(Dispatchers.IO){
+
+    fun decodedBitmap(source: String, holder: ViewHolder) {
+        GlobalScope.launch(Dispatchers.IO) {
             val decodedString = Base64.decode(source, Base64.DEFAULT)
-            val decodedByte: Bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            withContext(Dispatchers.Main){
+            val decodedByte: Bitmap =
+                BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            withContext(Dispatchers.Main) {
                 holder.img_thumnail_explore.setImageBitmap(decodedByte)
             }
         }
@@ -68,18 +71,20 @@ class HotelViewAdapter(var list : ArrayList<HotelExplore>, var context: Context)
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val hotelExplore : HotelExplore = list[position]
-        decodedBitmap(hotelExplore.details1,holder)
+        val hotelExplore: HotelExplore = list[position]
+        decodedBitmap(hotelExplore.details1, holder)
         holder.tv_hotelName_explore.text = hotelExplore.nameHotel
         holder.tv_level_hotel_explore.text = hotelExplore.levelHotel
-        val decimalFormat =DecimalFormat("###,###,###")
-        holder.tv_price_explore.text =decimalFormat.format(hotelExplore.priceRange.toInt())+ " đ"
+        val decimalFormat = DecimalFormat("###,###,###")
+        holder.tv_price_explore.text = decimalFormat.format(hotelExplore.priceRange.toInt()) + " đ"
+
     }
-    fun setHotelViewAdapter(listener : HotelViewListener){
+
+    fun setHotelViewAdapter(listener: HotelViewListener) {
         this.listener = listener
     }
 
-    interface HotelViewListener{
+    interface HotelViewListener {
         fun HotelViewwOnClick(hotelExplore: HotelExplore)
     }
 }

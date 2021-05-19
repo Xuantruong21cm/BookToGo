@@ -28,6 +28,7 @@ class RegisterFragment : Fragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
         initView(view)
+
         view.img_sing_up.setOnClickListener {
             if (view.edt_newEmail.text.isEmpty() || view.edt_newUsername.text.isEmpty() || view.edt_newPassword.text.isEmpty()) {
                 Toast.makeText(context, "Don't empty the data", Toast.LENGTH_SHORT).show()
@@ -57,9 +58,8 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        view.img_backRegister.setOnClickListener { 
+        view.img_backRegister.setOnClickListener {
             activity!!.supportFragmentManager.popBackStack()
-
         }
 
         return view

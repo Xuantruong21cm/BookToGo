@@ -30,5 +30,6 @@ data class HotelExplore(
     var laundry : String,
     var reception : String,
     var security_camera : String,
-    var smoke : String
+    var smoke : String,
+    var active : String
 )

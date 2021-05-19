@@ -12,6 +12,7 @@ class AccountHelper {
     var codeOTP : String? = null
     var avatar : String? = null
 
+
     constructor()
 
     companion object {

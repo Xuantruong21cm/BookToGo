@@ -65,11 +65,12 @@ class HomeActivity : AppCompatActivity() {
         chip_navigationView = chip_navigation
         supportFragmentManager.beginTransaction().apply {
             add(R.id.layout_home,userFragment).hide(userFragment)
-            add(R.id.layout_home,bookmarkFragment).hide(bookmarkFragment)
+            add(R.id.layout_home,bookmarkFragment,"favouriteFragment").hide(bookmarkFragment)
             add(R.id.layout_home,searchFragment).hide(searchFragment)
             add(R.id.layout_home,homeFragment)
         }.commit()
         chip_navigationView.setItemSelected(R.id.bottom_nav_home, true)
+
         bottom_navigation()
         initExplore_HaNoi()
         initExplore_HCM()
@@ -209,6 +210,11 @@ class HomeActivity : AppCompatActivity() {
                     R.id.bottom_nav_bookmark -> {
                         supportFragmentManager.beginTransaction().hide(activeFragment).show(bookmarkFragment).commit()
                         activeFragment = bookmarkFragment
+                        val current = supportFragmentManager.findFragmentByTag("favouriteFragment")
+                        val transition = supportFragmentManager.beginTransaction()
+                        transition.detach(current!!)
+                        transition.attach(current)
+                        transition.commit()
 
                     }
                     R.id.bottom_nav_user -> {

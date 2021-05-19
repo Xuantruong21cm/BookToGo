@@ -141,41 +141,43 @@ class ExploreFragment : Fragment() {
                     val reception = ds.child("reception").value.toString()
                     val security_camera = ds.child("security_camera").value.toString()
                     val smoke = ds.child("smoke").value.toString()
-
-                    listHotel_explore.add(
-                        HotelExplore(
-                            addressHotel,
-                            idHotel,
-                            levelHotel,
-                            nameHotel,
-                            priceRange,
-                            lat,
-                            lng,
-                            details1,
-                            details2,
-                            details3,
-                            details4,
-                            details5,
-                            details6,
-                            details7,
-                            details8,
-                            details9,
-                            nearby1,
-                            nearby2,
-                            nearby3,
-                            nearby4,
-                            nearby5,
-                            clean_room,
-                            elevator,
-                            family,
-                            free_wifi,
-                            hot_tub,
-                            laundry,
-                            reception,
-                            security_camera,
-                            smoke
+                    val active = ds.child("active").value.toString()
+                    if (active.trim().toInt() == 0 ){
+                        listHotel_explore.add(
+                            HotelExplore(
+                                addressHotel,
+                                idHotel,
+                                levelHotel,
+                                nameHotel,
+                                priceRange,
+                                lat,
+                                lng,
+                                details1,
+                                details2,
+                                details3,
+                                details4,
+                                details5,
+                                details6,
+                                details7,
+                                details8,
+                                details9,
+                                nearby1,
+                                nearby2,
+                                nearby3,
+                                nearby4,
+                                nearby5,
+                                clean_room,
+                                elevator,
+                                family,
+                                free_wifi,
+                                hot_tub,
+                                laundry,
+                                reception,
+                                security_camera,
+                                smoke,active
+                            )
                         )
-                    )
+                    }
                 }
                 setHotelExplore(view)
             }

@@ -34,12 +34,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
+import java.text.Normalizer
 import java.util.concurrent.*
+import java.util.regex.Pattern
 
 
 class DetailBookingFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
+    private lateinit var referenceHotel: DatabaseReference
     private var delay: Long = 1000
     private var last_text_edit: Long = 0
     private var handler = Handler(Looper.getMainLooper())
@@ -66,7 +69,7 @@ class DetailBookingFragment : Fragment() {
         input_finish_checker = Runnable {
             run {
                 val decimalFormat = DecimalFormat("###,###,###")
-                var notFound : Int = 0
+                var notFound = 0
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
                     for (discount: Discount in HomeFragment.discountList) {
                         if (discount.code.equals(view.edt_promotion.text.toString().trim())) {
@@ -79,7 +82,10 @@ class DetailBookingFragment : Fragment() {
                                 DialogType.SUCCESS
                             )
                                 .setTitle("Discounted")
-                                .setMessage(decimalFormat.format((HotelHelper.instance.priceRange!!.toInt() / 100 * discount.percent.toInt())).toString())
+                                .setMessage(
+                                    decimalFormat.format((HotelHelper.instance.priceRange!!.toInt() / 100 * discount.percent.toInt()))
+                                        .toString()
+                                )
                                 .setCancelable(false)
                                 .setDarkMode(false)
                                 .setGravity(Gravity.CENTER)
@@ -95,7 +101,7 @@ class DetailBookingFragment : Fragment() {
                             break
                         }
                     }
-                    if (notFound == 0 ){
+                    if (notFound == 0) {
                         AestheticDialog.Builder(
                             activity!!,
                             DialogStyle.FLAT,
@@ -170,6 +176,14 @@ class DetailBookingFragment : Fragment() {
             GlobalScope.launch(Dispatchers.Default) {
                 reference.child(AccountHelper.instance.phone!!).child(idBooking.toString())
                     .setValue(booking)
+                referenceHotel.child(
+                    convertString(
+                        TripHelper.instance.district!!.replace(
+                            "\\s".toRegex(),
+                            ""
+                        )
+                    )!!
+                ).child(HotelHelper.instance.idHotel!!).child("active").setValue("1")
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Booking Complete", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, HomeActivity::class.java)
@@ -201,11 +215,18 @@ class DetailBookingFragment : Fragment() {
         })
     }
 
-    private fun closeKeyboard(){
+    private fun convertString(value: String): String? {
+        val temp: String = Normalizer.normalize(value, Normalizer.Form.NFD)
+        val pattern: Pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        return pattern.matcher(temp).replaceAll("")
+    }
+
+    private fun closeKeyboard() {
         val view = activity!!.currentFocus
-        if (view != null){
-            val imm : InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken,0)
+        if (view != null) {
+            val imm: InputMethodManager =
+                activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
@@ -231,6 +252,7 @@ class DetailBookingFragment : Fragment() {
 
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Booking")
+        referenceHotel = database.getReference(TripHelper.instance.cityHotel!!)
     }
 
     fun decodedBitmap(source: String): Bitmap {

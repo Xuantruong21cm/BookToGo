@@ -10,14 +10,11 @@ import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTabHost
 import androidx.fragment.app.FragmentTransaction
 import com.example.booktogo.Helper.AccountHelper
 import com.example.booktogo.R
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.fragment_info_user.view.*
-import kotlinx.android.synthetic.main.fragment_register.view.img_markerLocation
-import kotlinx.android.synthetic.main.fragment_register.view.tv_cityNameRegister
 
 class InfoUserFragment : Fragment() {
     lateinit var topAnim: Animation
