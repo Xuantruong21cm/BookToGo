@@ -7,6 +7,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.booktogo.R
@@ -21,14 +22,15 @@ import java.text.DecimalFormat
 
 class HistoryAdapter(var list : ArrayList<BookingHistory>) :
     RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
-
-    inner class ViewHolder : RecyclerView.ViewHolder{
+    lateinit var listener : cancelBooking
+    inner class ViewHolder : RecyclerView.ViewHolder,View.OnClickListener{
         var img_avatar_history : RoundRectCornerImageView
         var tv_hotelName_history : TextView
         var tv_address_history : TextView
         var tv_date_history : TextView
         var tv_days_history : TextView
         var tv_price_history : TextView
+        var img_cancel_booking : ImageView
 
         constructor(itemView : View) : super(itemView){
             img_avatar_history = itemView.img_avatar_history
@@ -37,6 +39,12 @@ class HistoryAdapter(var list : ArrayList<BookingHistory>) :
             tv_date_history= itemView.tv_date_history
             tv_days_history = itemView.tv_days_history
             tv_price_history = itemView.tv_price_history
+            img_cancel_booking = itemView.img_cancel_booking
+            img_cancel_booking.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            listener.cancel(list[bindingAdapterPosition],bindingAdapterPosition)
         }
     }
 
@@ -69,5 +77,13 @@ class HistoryAdapter(var list : ArrayList<BookingHistory>) :
                 holder.img_avatar_history.setImageBitmap(decodedByte)
             }
         }
+    }
+
+    fun ClickCancelBooking(listener : cancelBooking){
+        this.listener = listener
+    }
+
+    interface cancelBooking{
+        fun cancel(bookingHistory: BookingHistory,position : Int)
     }
 }

@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 import java.text.Normalizer
+import java.util.*
 import java.util.concurrent.*
 import java.util.regex.Pattern
 
@@ -145,7 +146,8 @@ class DetailBookingFragment : Fragment() {
         }
 
         view.btn_booking_this_room.setOnClickListener {
-            val idBooking = ThreadLocalRandom.current().nextInt(100000, 999999)
+//            val idBooking = ThreadLocalRandom.current().nextInt(100000, 999999)
+            val idBooking = Random().nextInt((999999 - 100000)+1) + 100000
             val idHotel = HotelHelper.instance.idHotel
             val date_time =
                 view.tv_startDay_detailBooking.text.toString() + " - " + view.tv_endDay_detailBooking.text.toString()
@@ -159,7 +161,9 @@ class DetailBookingFragment : Fragment() {
             val phone = AccountHelper.instance.phone
             val price = defaultPrice.toString()
             val detail = HotelHelper.instance.details1
+            val active = "1"
             val booking = Booking(
+                idBooking.toString(),
                 idHotel,
                 date_time,
                 days,
@@ -171,7 +175,15 @@ class DetailBookingFragment : Fragment() {
                 email,
                 phone,
                 price,
-                detail
+                detail,
+                active,
+                convertString(
+                    TripHelper.instance.district!!.replace(
+                        "\\s".toRegex(),
+                        ""
+                    )
+                )!!,
+                TripHelper.instance.cityHotel
             )
             GlobalScope.launch(Dispatchers.Default) {
                 reference.child(AccountHelper.instance.phone!!).child(idBooking.toString())
@@ -184,6 +196,13 @@ class DetailBookingFragment : Fragment() {
                         )
                     )!!
                 ).child(HotelHelper.instance.idHotel!!).child("active").setValue("1")
+
+                val transition = requireActivity().supportFragmentManager.beginTransaction()
+                transition.detach(SearchFragment())
+                transition.detach(UserFragment())
+                transition.attach(SearchFragment())
+                transition.attach(UserFragment())
+                transition.commit()
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Booking Complete", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, HomeActivity::class.java)

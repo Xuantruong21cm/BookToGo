@@ -43,51 +43,53 @@ class SearchFragment : Fragment() {
     }
 
     private fun setDataHotel(view: View?) {
-        hotelViewAdapter = HotelViewAdapter(listHotel_explore, requireContext())
-        view!!.recyclerView_listHotel.setHasFixedSize(true)
-        view.recyclerView_listHotel.adapter = hotelViewAdapter
-        hotelViewAdapter.setHotelViewAdapter(object : HotelViewAdapter.HotelViewListener {
-            override fun HotelViewwOnClick(hotelExplore: HotelExplore) {
-                // Toast.makeText(context,hotelExplore.wifiFree,Toast.LENGTH_SHORT).show()
-                HotelHelper.instance.addressHotel = hotelExplore.addressHotel
-                HotelHelper.instance.idHotel = hotelExplore.idHotel
-                HotelHelper.instance.lat = hotelExplore.lat
-                HotelHelper.instance.lng = hotelExplore.lng
-                HotelHelper.instance.priceRange = hotelExplore.priceRange
-                HotelHelper.instance.levelHotel = hotelExplore.levelHotel
-                HotelHelper.instance.nameHotel = hotelExplore.nameHotel
-                HotelHelper.instance.details1 = hotelExplore.details1
-                HotelHelper.instance.details2 = hotelExplore.details2
-                HotelHelper.instance.details3 = hotelExplore.details3
-                HotelHelper.instance.details4 = hotelExplore.details4
-                HotelHelper.instance.details5 = hotelExplore.details5
-                HotelHelper.instance.details6 = hotelExplore.details6
-                HotelHelper.instance.details7 = hotelExplore.details7
-                HotelHelper.instance.details8 = hotelExplore.details8
-                HotelHelper.instance.details9 = hotelExplore.details9
-                HotelHelper.instance.nearby1 = hotelExplore.nearby1
-                HotelHelper.instance.nearby2 = hotelExplore.nearby2
-                HotelHelper.instance.nearby3 = hotelExplore.nearby3
-                HotelHelper.instance.nearby4 = hotelExplore.nearby4
-                HotelHelper.instance.nearby5 = hotelExplore.nearby5
-                HotelHelper.instance.clean_room = hotelExplore.clean_room
-                HotelHelper.instance.elevator = hotelExplore.elevator
-                HotelHelper.instance.family = hotelExplore.family
-                HotelHelper.instance.free_wifi = hotelExplore.free_wifi
-                HotelHelper.instance.hot_tub = hotelExplore.hot_tub
-                HotelHelper.instance.laundry = hotelExplore.laundry
-                HotelHelper.instance.reception = hotelExplore.reception
-                HotelHelper.instance.security_camera = hotelExplore.security_camera
-                HotelHelper.instance.smoke = hotelExplore.smoke
+        if (listHotel_explore.size > 0){
+            hotelViewAdapter = HotelViewAdapter(listHotel_explore, context!!)
+            view!!.recyclerView_listHotel.setHasFixedSize(true)
+            view.recyclerView_listHotel.adapter = hotelViewAdapter
+            hotelViewAdapter.setHotelViewAdapter(object : HotelViewAdapter.HotelViewListener {
+                override fun HotelViewwOnClick(hotelExplore: HotelExplore) {
+                    // Toast.makeText(context,hotelExplore.wifiFree,Toast.LENGTH_SHORT).show()
+                    HotelHelper.instance.addressHotel = hotelExplore.addressHotel
+                    HotelHelper.instance.idHotel = hotelExplore.idHotel
+                    HotelHelper.instance.lat = hotelExplore.lat
+                    HotelHelper.instance.lng = hotelExplore.lng
+                    HotelHelper.instance.priceRange = hotelExplore.priceRange
+                    HotelHelper.instance.levelHotel = hotelExplore.levelHotel
+                    HotelHelper.instance.nameHotel = hotelExplore.nameHotel
+                    HotelHelper.instance.details1 = hotelExplore.details1
+                    HotelHelper.instance.details2 = hotelExplore.details2
+                    HotelHelper.instance.details3 = hotelExplore.details3
+                    HotelHelper.instance.details4 = hotelExplore.details4
+                    HotelHelper.instance.details5 = hotelExplore.details5
+                    HotelHelper.instance.details6 = hotelExplore.details6
+                    HotelHelper.instance.details7 = hotelExplore.details7
+                    HotelHelper.instance.details8 = hotelExplore.details8
+                    HotelHelper.instance.details9 = hotelExplore.details9
+                    HotelHelper.instance.nearby1 = hotelExplore.nearby1
+                    HotelHelper.instance.nearby2 = hotelExplore.nearby2
+                    HotelHelper.instance.nearby3 = hotelExplore.nearby3
+                    HotelHelper.instance.nearby4 = hotelExplore.nearby4
+                    HotelHelper.instance.nearby5 = hotelExplore.nearby5
+                    HotelHelper.instance.clean_room = hotelExplore.clean_room
+                    HotelHelper.instance.elevator = hotelExplore.elevator
+                    HotelHelper.instance.family = hotelExplore.family
+                    HotelHelper.instance.free_wifi = hotelExplore.free_wifi
+                    HotelHelper.instance.hot_tub = hotelExplore.hot_tub
+                    HotelHelper.instance.laundry = hotelExplore.laundry
+                    HotelHelper.instance.reception = hotelExplore.reception
+                    HotelHelper.instance.security_camera = hotelExplore.security_camera
+                    HotelHelper.instance.smoke = hotelExplore.smoke
 
-                val manager = activity!!.supportFragmentManager
-                val transition = manager.beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
-                val fragment = HotelDetailsFragment()
-                transition.add(R.id.layout_home, fragment).commit()
-                transition.addToBackStack(fragment::class.java.simpleName)
-            }
-        })
+                    val manager = activity!!.supportFragmentManager
+                    val transition = manager.beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_left)
+                    val fragment = HotelDetailsFragment()
+                    transition.add(R.id.layout_home, fragment).commit()
+                    transition.addToBackStack(fragment::class.java.simpleName)
+                }
+            })
+        }
     }
 
     private fun initDataHotel(view: View) {

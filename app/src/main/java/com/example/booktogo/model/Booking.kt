@@ -1,6 +1,7 @@
 package com.example.booktogo.model
 
 data class Booking(
+    var idBooking : String?,
     var idHotel : String?,
     var date_time : String?,
     var days : String?,
@@ -12,5 +13,8 @@ data class Booking(
     var email : String?,
     var phone : String?,
     var price : String?,
-    var detail_avatar : String?
+    var detail_avatar : String?,
+    var active : String?,
+    var district : String?,
+    var cityname : String?
 )

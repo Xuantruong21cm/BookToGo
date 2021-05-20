@@ -6,19 +6,18 @@
     android:layout_height="wrap_content">
 
     <com.example.booktogo.customView.RoundRectCornerImageView
-
-        tools:src="@drawable/hoguom"
-        android:scaleType="fitXY"
+        android:layout_marginBottom="2dp"
         android:id="@+id/img_avatar_history"
         android:layout_width="144dp"
         android:layout_height="144dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/hoguom" />
 
     <TextView
-        app:layout_constraintBottom_toTopOf="@+id/tv_address_history"
         android:id="@+id/tv_hotelName_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,13 +28,12 @@
         android:textColor="#2D3A4C"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_address_history"
         app:layout_constraintStart_toEndOf="@+id/img_avatar_history"
         app:layout_constraintTop_toTopOf="@+id/img_avatar_history"
         tools:text="Phòng Gia Đình Cao Cấp 202" />
 
     <TextView
-        app:layout_constraintBottom_toTopOf="@+id/tv_date_history"
-        android:textStyle="bold"
         android:id="@+id/tv_address_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,33 +43,35 @@
         android:maxEms="12"
         android:textColor="#2D3A4C"
         android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_date_history"
         app:layout_constraintStart_toEndOf="@+id/img_avatar_history"
         app:layout_constraintTop_toBottomOf="@+id/tv_hotelName_history"
         tools:text="30 Lo Su, 5th house in the Alley, Quận Hoàn Kiếm, Hà Nội, Việt Nam" />
 
     <TextView
-        app:layout_constraintBottom_toTopOf="@+id/tv_price_history"
-        android:layout_marginEnd="4dp"
-        android:gravity="start"
         android:id="@+id/tv_date_history"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="@font/quicksand_regular"
+        android:gravity="start"
         android:textColor="#2D3A4C"
         android:textSize="13sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_price_history"
         app:layout_constraintEnd_toStartOf="@+id/tv_days_history"
         app:layout_constraintStart_toEndOf="@+id/img_avatar_history"
         app:layout_constraintTop_toBottomOf="@+id/tv_address_history"
         tools:text="13/4/2021 - 16/4/2021" />
 
     <TextView
-        android:layout_marginEnd="8dp"
         android:id="@+id/tv_days_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/quicksand_regular"
         android:textColor="#2D3A4C"
         android:textSize="13sp"
@@ -95,6 +95,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_date_history"
         tools:text="800000" />
 
+    <ImageView
+        android:layout_marginEnd="8dp"
+        android:id="@+id/img_cancel_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancel_booking"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_days_history" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

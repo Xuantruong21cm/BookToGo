@@ -72,7 +72,9 @@ class UserFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
-        view.img_avatar.setImageBitmap(decodedBitmap(AccountHelper.instance.avatar!!))
+        if (decodedBitmap(AccountHelper.instance.avatar!!) != null){
+            view.img_avatar.setImageBitmap(decodedBitmap(AccountHelper.instance.avatar!!))
+        }
         view.tv_userName_info.text = AccountHelper.instance.firstname + " "+ AccountHelper.instance.lastname
     }
 
