@@ -5,12 +5,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.booktogo.fragment.HisrotyBookingFragment
 import com.example.booktogo.fragment.PresentFragment
+import com.example.booktogo.fragment.WaitBookingFragment
 
 class HistoryViewPagerAdapter(fm: FragmentManager, behavior: Int) :
     FragmentPagerAdapter(fm, behavior) {
     var list : ArrayList<Fragment> = ArrayList()
 
     init {
+        list.add(WaitBookingFragment())
         list.add(PresentFragment())
         list.add(HisrotyBookingFragment())
     }
@@ -26,8 +28,9 @@ class HistoryViewPagerAdapter(fm: FragmentManager, behavior: Int) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "Present Booking"
-            1 -> "History Booking"
+            0 -> "Wait Booking"
+            1 -> "Present Booking"
+            2 -> "History Booking"
             else -> ""
         }
     }

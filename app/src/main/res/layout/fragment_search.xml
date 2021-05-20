@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:onClick="noClick"
+    android:layout_marginBottom="82dp"
     android:id="@+id/layout_search"
     tools:context=".fragment.SearchFragment"
     tools:ignore="OnClick">

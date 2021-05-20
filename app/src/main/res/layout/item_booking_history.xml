@@ -95,4 +95,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_date_history"
         tools:text="800000" />
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
